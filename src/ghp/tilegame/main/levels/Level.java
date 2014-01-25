@@ -13,7 +13,7 @@ import java.util.Scanner;
 import no.gamejam.Actor;
 import no.gamejam.TileMechanics;
 
-public class Level 
+public class Level implements TiledLevel
 {
 	private final File standardFile = new File("resources/text/Level1Map");
 
@@ -30,9 +30,6 @@ public class Level
 		}
 	}*/
 
-	public void setTile(int x, int y, Tile tileType){
-		//tileType.render(g, 0, 0);
-	}
 
 	public Level (ImageManager im){
 		FLOOR_TILE = new FloorTile(im);
@@ -55,9 +52,31 @@ public class Level
 	public void renderLevel(Graphics g, Tile floorTile){
 		for(int y=0; y<tilesY; y++){
 			for(int x=0; x<tilesX; x++){
-				tiles[x][y].render(g, x*64, y*64);
+				tiles[x][y].render(g,  x*64, y*64);
 			}
 		}
+	}
+
+	@Override
+	public void setTile(int x, int y, Tile tile) {
+		tiles[x][y] = tile;
+	}
+
+	@Override
+	public Tile getTile(int x, int y) {
+		return tiles[x][y];
+	}
+
+	@Override
+	public int getXSize() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getYSize() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
 

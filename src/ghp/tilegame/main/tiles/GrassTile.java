@@ -19,4 +19,9 @@ public class GrassTile extends Tile{
 		g.drawImage(im.grassTile, x, y, Game.TILESIZE*Game.SCALE, Game.TILESIZE*Game.SCALE, null);		
 	}
 
+	@Override
+	public boolean getWalkable() {
+		return true;
+	}
+
 }
