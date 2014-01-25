@@ -17,7 +17,6 @@ public class Player extends Spiller implements Paintable
 {
 	private int x, y;
 	private ImageManager im;
-	public boolean up = false, dn = false, lt = false, rt = false;
 	private final int SPEED = 4;
 	public boolean moving = false;
 	public boolean movingUp = false, movingDn = false, movingLt = false, movingRt = false;
@@ -87,11 +86,23 @@ public class Player extends Spiller implements Paintable
 		}
 	}
 	
-	public void playerMove(){
-		up = true;
-		moving = true;
-		movingUp = true;
+	public void move(char direction){
 		pixelsToMove = 64;
+		moving = true;
+		switch(direction){
+		case 'U':  	movingUp = true;
+		break;
+		case 'D':  	movingDn = true;
+		break;
+		case 'L': 	movingLt = true;
+        break;
+		case 'R':  	movingRt = true;
+		break;
+		default: 	System.out.println("No direction to move");
+					pixelsToMove = 0;
+					moving = false;
+        break;
+		}
 	}
 
 	public void render(Graphics g){
