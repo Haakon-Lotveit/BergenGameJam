@@ -55,13 +55,7 @@ public class Level
 		for(int y=0; y<tilesY; y++){
 			for(int x=0; x<tilesX; x++){
 				if(tiles[x][y] == 0){ 	// if floor type tile
-<<<<<<< HEAD
-					//floorTile.render(g, tilesX*64, tilesY*64);
-//					floorTile.render(g, 1, 1);
-=======
 					floorTile.render(g, x*64, y*64);
-					
->>>>>>> 94b194cdb4434b584fc68247749815613d4bc76c
 				}
 			}
 		}
