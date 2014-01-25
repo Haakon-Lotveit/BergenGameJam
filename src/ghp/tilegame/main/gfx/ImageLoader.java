@@ -14,7 +14,7 @@ public class ImageLoader
 		System.out.println(imageFile.exists());
 		System.out.println(imageFile.getAbsolutePath());
 		try {
-			return ImageIO.read(imageFile);
+			return ImageIO.read(getClass().getResource(path));
 		} catch (IOException e) {e.printStackTrace();}
 		return null;
 	}
