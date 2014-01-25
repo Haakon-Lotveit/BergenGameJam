@@ -10,6 +10,15 @@ public class SnakkingPrototyp {
 	 */
 	public static void main(String[] args) {
 		
+		TalkEngine te = null;
+		try {
+			te = new TalkEngine();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.exit(1);
+		}
+		
 		int smisk, skrem, bløff;
 		Scanner kb = new Scanner(System.in);
 		System.out.println("Oppretter ny spiller:");
@@ -25,6 +34,7 @@ public class SnakkingPrototyp {
 		System.out.println("Genererte en vakt:");
 		System.out.println(vakt);
 		
+		System.out.println(te.getResponse("PRAKT", "HILS"));
 		System.out.println("[1] Smisk");
 		System.out.println("[2] Skrem");
 		System.out.println("[3] Bløff");
@@ -32,14 +42,7 @@ public class SnakkingPrototyp {
 		int valg = Integer.valueOf(kb.nextLine().trim());
 		TalkType type = valg == 1 ? TalkType.SMISK : valg == 2 ? TalkType.SKREM : TalkType.BLØFF;
 		
-		TalkEngine te = null;
-		try {
-			te = new TalkEngine();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.exit(1);
-		}
+		
 		Pair<Integer,String> response = te.talk(spiller, vakt, type);
 		
 		System.out.println(response.getSecond());
