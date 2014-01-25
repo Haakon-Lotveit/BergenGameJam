@@ -5,7 +5,7 @@ SKREM VELLYKKET "Jaha, siden du insisterer på å barbere meg med en rusten spik
 SKREM NØYTRAL Vakten ser på deg. Han er redd, men viker ikke unna.
 SKREM NØYTRAL "Skal det liksom skremme meg?" Vakter skjelver litt med stemmen, men griper hardere om spydet sitt. Han vil ikke flytte seg.
 SKREM NØYTRAL "Hva sa du?" Vakten er tydelig irritert, men han har fulgt med på vaktkurset sitt, og prøver å pasifisere situasjonen. For en flink vakt!
-SKREM NØYTRAL "Hæ hæ hæ hæ, du spøker ikke sant?" Vakten er nervøs, men tror du spøker. 
+SKREM NØYTRAL "Lille Timmy har falt ned i brønnen? Sorry, jeg forstår ikke bjeffinga di" Du vet ikke helt om dette var et forsøk på populærkulturhumor, eller om han faktisk ikke forsto hva du skrek til ham. 
 SKREM MISLYKKET Vakten er ikke imponert over bravadoet ditt, og gripper etter sverdet sitt
 SKREM MISLYKKET "HVA SA DU OM MOREN MIN!?" Ops. Det var kanskje ikke det beste valget av ord.
 SKREM MISLYKKET "Du skremmer ikke meg, din tarvelige slusk". Vakten griper etter sverdet og gnisser med tennene.
@@ -14,6 +14,13 @@ BLØFF VELLYKKET Vakten begynner å lyse opp og utroper "Har du også en katt so
 BLØFF VELLYKKET "En tre-ukers tur til Nilsavika feriefort!? Tusen hjertelig takk!" Vakten er helt våt i øynene. Er du fornøyd? Du knuste nettopp de største drømmene til stakkars Nils, ditt udyr!
 BLØFF VELLYKKET "Joda, det går bra med Nils junior! Han har begynt å gro dunet på overleppa nå. Han er litt sen, men ikke alle kan begynne å gro full bart på en alder av fem" Vakten er tydelig stolt av barnet sitt og prater en evighet om barnet sitt. Du himler med øynene og går videre.
 BLØFF VELLYKKET "Hæ?! har du harva over Elnilse? Fortell meg ALT!" Vakten er lutter øre, men du spyr ut den ene løgnen etter den andre om dine sengeferdigheter. Vakten er tydelig opphisset. Du går videre, men vurderer å vaske munnen med oppvasksåpe.
+BLØFF NØYTRAL "Hæ?" Enten skjønner Vakten ingenting, eller så er du veldig lite karismatisk akkurat nå.
+BLØFF NØYTRAL "Jeg veit ikke helt, timeshare på Nilsevika feriefort når jeg er tretti? Jeg tror helt oppriktig jeg ikke kommer til å leve så lenge" Vakten er mindre besluttsom enn forventet. Tror du nesten må gå fram på en annen måte.
+BLØFF NØYTRAL "Jeg veit ikke helt om jeg tror på at det er en krukke med gull rundt hjørnet" Jeg er godtroende, men ikke dum! Seriøst, en krukke med gull?! Den bløffen ville ikke engang mora mi ha trodd på! Prøv noe annet.
+BLØFF NØYTRAL "DAFT PUNK spiller i huset ditt?! Hvem er DAFT PUNK?" Jeg tror kanskje du bør omvurdere populærkulturreferansene dine. Hvordan veit du om Daft Punk, forresten? 
+BLØFF MISLYKKET "JEG TRENGER IKKE EN NY RELIGION! NILSUS ER MIN ENESTE FRELSER!" Vakten er fornærmet på et metafysisk plan! Han griper sverdet, mens han siterer noen vers fra første Nilsebok
+BLØFF MISLYKKET "Tror du virkelig jeg er så lettlurt? Å trekke en gylden Nils fra øret er det eldste trikset i boka, dessuten er magi og illusjon forbudt i dette fortet!" Ser ut som det er dødsstraff å bedrive magi og illusjon i dette fortet. Der dreit du deg ut på flere nivå.
+BLØFF MISLYKKET "Jeg blåser i at du har bart, Nils jr begynte å gro full bart allerede når han var sju! Skal du gjennom, så må du enten vise identifikasjon, eller over mitt lik!" Vi har ikke lagt til identifikasjon, så da må du nok sloss, beklager det der.
 JAKT HILS Hei! Kutt ut den luskinga!
 JAKT HILS Hvem er du?
 JAKT HILS Jeg så deg snike rundt, fant du noe noe fint?
@@ -26,4 +33,4 @@ VAKT HILS Så liten du er! Er du en av disse hobbitene jeg har hørt så mye om?
 PRAKT HILS Har de prøvd den vellagrede årgangen av Chateau Nils? Den aldeles vidunderlig!
 PRAKT HILS Digger retrostilen din, høvding! Vintage-adeltøy er vanskelig å kommer over! Hvor fikk du tak i det?
 PRAKT HILS Bare vent og se! En dag skal jeg vinne Elnilses hjerte, og vi skal ha åtte barn, hvor bare fem av dem dør av samtidspester og andre sykdommer!
-PRAKT HILS 
+PRAKT HILS Kan du pudre nesen min? Hendene mine er så slitne etter at jeg dasket tjenestenilsen min på stumpen, at jeg ikke kan gjøre det selv. 
