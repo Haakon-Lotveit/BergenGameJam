@@ -5,8 +5,9 @@ import java.awt.Graphics;
 import no.gamejam.Spiller;
 import ghp.tilegame.main.Game;
 import ghp.tilegame.main.gfx.ImageManager;
+import ghp.tilegame.main.levels.Paintable;
 
-public class Player extends Spiller
+public class Player extends Spiller implements Paintable
 {
 	
 	private int x, y;
