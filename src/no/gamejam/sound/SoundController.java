@@ -4,11 +4,14 @@
  */
 package no.gamejam.sound;
 
+import java.io.File;
 import java.util.LinkedList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import no.gamejam.structure.Pair;
 
 
 /**
@@ -16,7 +19,13 @@ import java.util.logging.Logger;
  * @author haakon
  */
 public class SoundController implements Runnable {
-
+	public static Pair<Thread, SoundController> create(File soundFile) throws Exception {
+		SoundFile sf = new SoundFile(soundFile);
+		SoundController sc = new SoundController(sf);
+		Thread t = new Thread(sc);
+		
+		return new Pair<Thread, SoundController>(t, sc); 
+	}
 	String progress = "0%";
 
 	/**
