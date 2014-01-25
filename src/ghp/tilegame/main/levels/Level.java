@@ -46,8 +46,8 @@ public class Level
 		}*/
 		
 		tiles = new int[tilesX][tilesY];
-		for(int y=0; y<tilesX; y++){
-			for(int x=0; x<tilesY; x++){
+		for(int y=0; y<tilesY; y++){
+			for(int x=0; x<tilesX; x++){
 				if(true){ 	// if floor type tile
 					//floorTile.render(g, tilesX*64, tilesY*64);
 					tiles[x][y] = 0;
@@ -61,7 +61,7 @@ public class Level
 			for(int x=0; x<tilesY; x++){
 				if(tiles[x][y] == 0){ 	// if floor type tile
 					//floorTile.render(g, tilesX*64, tilesY*64);
-					floorTile.render(g, 1, 1);
+//					floorTile.render(g, 1, 1);
 				}
 			}
 		}
