@@ -1,17 +1,10 @@
 package ghp.tilegame.main.levels;
 
 import ghp.tilegame.main.gfx.ImageManager;
-import ghp.tilegame.main.tiles.FloorTile;
 import ghp.tilegame.main.tiles.Tile;
 
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-
-import no.gamejam.Actor;
-import no.gamejam.TileMechanics;
 
 public class Level 
 {
@@ -20,7 +13,6 @@ public class Level
 	private int tilesX = 10, tilesY = 6;
 	
 	private int[][] tiles;
-	//private static FloorTile floorTile;
 	
 	/*public Tile[][] tiles;
 	
