@@ -31,7 +31,7 @@ public class Game extends Canvas implements Runnable{
 	private static Player player;
 //	temp
 	private static FloorTile floorTile;
-	private static Level level1;
+	public static Level level1;
 	
 	public void init(){
 		ImageLoader loader = new ImageLoader();
@@ -51,6 +51,7 @@ public class Game extends Canvas implements Runnable{
 			e.printStackTrace();
 			System.exit(1);
 		}
+		
 		
 		this.addKeyListener(new KeyManager());
 	}

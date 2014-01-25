@@ -16,7 +16,7 @@ public class StoneWallTile extends PNGTile {
 	}
 	
 	@Override
-	public boolean getWalkable() {
+	public boolean isWalkable() {
 		return false; // Cannot walk on a wall
 	}
 

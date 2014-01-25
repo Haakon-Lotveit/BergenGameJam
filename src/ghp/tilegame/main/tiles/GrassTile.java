@@ -20,7 +20,7 @@ public class GrassTile extends IMTile{
 	}
 
 	@Override
-	public boolean getWalkable() {
+	public boolean isWalkable() {
 		return true;
 	}
 

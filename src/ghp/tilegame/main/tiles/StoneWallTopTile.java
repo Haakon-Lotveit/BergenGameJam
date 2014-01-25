@@ -25,7 +25,7 @@ public class StoneWallTopTile extends PNGTile {
 	}
 
 	@Override
-	public boolean getWalkable() {
+	public boolean isWalkable() {
 		return false;
 	}
 
