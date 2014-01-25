@@ -17,7 +17,7 @@ import javax.swing.JFrame;
 
 public class Game extends Canvas implements Runnable{
 	private static final long serialVersionUID = 1L;
-	public static final int WIDTH = 360, HEIGHT = 240, SCALE = 2, TILESIZE =34;
+	public static final int WIDTH = 320, HEIGHT = 192, SCALE = 2, TILESIZE =34;
 	public static boolean running = false;
 	public Thread gameThread;
 	
@@ -41,6 +41,7 @@ public class Game extends Canvas implements Runnable{
 		player = new Player(0, 0, im);
 //		temp
 		floorTile = new FloorTile(im);
+		level1 = new Level(tileSheet);
 		
 		this.addKeyListener(new KeyManager());
 	}
@@ -94,8 +95,13 @@ public class Game extends Canvas implements Runnable{
 		g.fillRect(0, 0, WIDTH*SCALE, HEIGHT*SCALE);
 		player.render(g);
 		
-		// Skrive ut en level istedet
-		floorTile.render(g, 0, 0);
+		if (floorTile == null)
+			System.out.println("floorTile");
+		if (g == null)
+			System.out.println("g");
+		//level1.renderLevel();
+		//level1.renderLevel(g, floorTile);
+		//floorTile.render(g, 0, 0);
 //		END RENDER
 		g.dispose();
 		bs.show();
