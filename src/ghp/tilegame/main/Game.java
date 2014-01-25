@@ -20,16 +20,16 @@ public class Game extends Canvas implements Runnable{
 	public Thread gameThread;
 	
 	private BufferedImage spriteSheet;
-	private BufferedImage tileSheet;
+	//private BufferedImage tileSheet;
 	private ImageManager im;
 	
 	private static Player player;
 	
 	public void init(){
 		ImageLoader loader = new ImageLoader();
-		spriteSheet = loader.load("/spritesheet.png");
-		// Jame
-		tileSheet = loader.load("/tilesheet.png");
+		spriteSheet = loader.load("/resources/sprites/spritesheet.png");
+		
+		//tileSheet = loader.load("/tilesheet.png");
 		
 		SpriteSheet ss = new SpriteSheet(spriteSheet);
 		im = new ImageManager(ss);
