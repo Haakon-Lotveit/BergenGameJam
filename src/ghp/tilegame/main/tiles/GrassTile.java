@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import ghp.tilegame.main.Game;
 import ghp.tilegame.main.gfx.ImageManager;
 
-public class GrassTile extends Tile{
+public class GrassTile extends IMTile{
 
 	public GrassTile(ImageManager im) {
 		super(im);

@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import ghp.tilegame.main.Game;
 import ghp.tilegame.main.gfx.ImageManager;
 
-public class FloorTile extends Tile{
+public class FloorTile extends IMTile{
 	
 	public FloorTile(ImageManager im) {
 		super(im);
