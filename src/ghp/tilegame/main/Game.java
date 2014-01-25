@@ -1,5 +1,6 @@
 package ghp.tilegame.main;
 
+import ghp.tilegame.main.entities.Nils;
 import ghp.tilegame.main.entities.Player;
 import ghp.tilegame.main.gfx.ImageLoader;
 import ghp.tilegame.main.gfx.ImageManager;
@@ -29,12 +30,15 @@ public class Game extends Canvas implements Runnable{
 	private ImageManager im;
 	
 	private static Player player;
+	private static Nils nils;
 //	temp
 	private static FloorTile floorTile;
 	public static Level level1;
 	
 	public void init(){
 		ImageLoader loader = new ImageLoader();
+		
+		nils = new Nils(2 ,1);
 		
 		tileSheet = loader.load("resources/sprites/tilesheet.png");
 		
@@ -93,6 +97,7 @@ public class Game extends Canvas implements Runnable{
 	
 	public void tick(){
 		player.tick();
+		nils.tick(level1);
 	}
 	
 	public void render(){
@@ -105,13 +110,12 @@ public class Game extends Canvas implements Runnable{
 		
 //		RENDER HERE
 		g.fillRect(0, 0, WIDTH*SCALE, HEIGHT*SCALE);
-		player.render(g);
-		
+			
 		//level1.renderLevel();
 		level1.renderLevel(g, floorTile);
 		//floorTile.render(g, 0, 0);
-		
 		player.render(g);
+		nils.render(g);
 //		END RENDER
 		g.dispose();
 		bs.show();

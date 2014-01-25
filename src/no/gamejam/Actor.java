@@ -8,5 +8,5 @@ public interface Actor {
 	 * we'll stick to it being any ole' object.
 	 * @param gameBoard
 	 */
-	public void act(Object gameBoard); 
+	public void tick(Object gameBoard); 
 }

@@ -14,6 +14,15 @@ public class Vakt implements Fighter, Actor {
 	/**
 	 * Lager et vaktobjekt med tilfeldig genererte verdier fra 0-14 inklusiv
 	 */
+	public Vakt(int smisk, int skrem, int bløff, int styrke, int seighet, int helse){
+		this.smisk = smisk;
+		this.skrem = skrem;
+		this.bløff = bløff;
+		this.styrke = styrke;
+		this.seighet = seighet;
+		this.helse = helse;
+		this.state = FightState.IDLE;
+	}
 	public Vakt(){
 		Random r = new Random();
 		this.smisk = r.nextInt(15);
@@ -69,7 +78,7 @@ public class Vakt implements Fighter, Actor {
 	}
 
 	@Override
-	public void act(Object gameBoard) {
+	public void tick(Object gameBoard) {
 		if(health() < 0){
 			this.state = FightState.DYING;
 		}
