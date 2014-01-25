@@ -21,12 +21,10 @@ public class Game extends Canvas implements Runnable{
 	public static boolean running = false;
 	public Thread gameThread;
 	
-//	private BufferedImage spriteSheet;
 	private BufferedImage tileSheet;
 	private ImageManager im;
 	
 	private static Player player;
-	private static Player player2;
 //	temp
 	private static FloorTile floorTile;
 	private static Level level1;
@@ -34,16 +32,15 @@ public class Game extends Canvas implements Runnable{
 	public void init(){
 		ImageLoader loader = new ImageLoader();
 		
-		//spriteSheet = loader.load("resources/sprites/spritesheet.png");
 		tileSheet = loader.load("resources/sprites/tilesheet.png");
 		
 		SpriteSheet ss = new SpriteSheet(tileSheet);
 		im = new ImageManager(ss);
 		player = new Player(0, 0, im);
-		player2 = new Player(64,0,im);
-//		temp
+
+		//		temp
 		floorTile = new FloorTile(im);
-		level1 = new Level(tileSheet);
+		level1 = new Level(im);
 		
 		this.addKeyListener(new KeyManager());
 	}
@@ -86,6 +83,7 @@ public class Game extends Canvas implements Runnable{
 	public void tick(){
 		player.tick();
 	}
+	
 	public void render(){
 		BufferStrategy bs = this.getBufferStrategy();
 		if(bs == null){
@@ -93,18 +91,16 @@ public class Game extends Canvas implements Runnable{
 			return;
 		}
 		Graphics g = bs.getDrawGraphics();
+		
 //		RENDER HERE
 		g.fillRect(0, 0, WIDTH*SCALE, HEIGHT*SCALE);
 		player.render(g);
-		player2.render(g);
 		
-		if (floorTile == null)
-			System.out.println("floorTile");
-		if (g == null)
-			System.out.println("g");
 		//level1.renderLevel();
-		//level1.renderLevel(g, floorTile);
+		level1.renderLevel(g, floorTile);
 		//floorTile.render(g, 0, 0);
+		
+		player.render(g);
 //		END RENDER
 		g.dispose();
 		bs.show();
