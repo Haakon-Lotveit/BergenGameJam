@@ -5,13 +5,7 @@ import ghp.tilegame.main.tiles.FloorTile;
 import ghp.tilegame.main.tiles.Tile;
 
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-
-import no.gamejam.Actor;
-import no.gamejam.TileMechanics;
 
 public class Level implements TiledLevel
 {

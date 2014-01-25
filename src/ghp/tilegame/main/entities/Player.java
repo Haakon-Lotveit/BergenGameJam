@@ -27,7 +27,6 @@ public class Player extends Spiller implements Paintable
 		if(dn){y += SPEED;}
 		if(lt){x -= SPEED;}
 		if(rt){x += SPEED;}
-		
 	}
 	
 	public void render(Graphics g){
