@@ -7,17 +7,28 @@ public class KeyManager implements KeyListener
 {
 	public void keyPressed(KeyEvent e) {
 //		MOVEMENT
-		if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
-			Game.getPlayer().up = true;
+		if((e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) && Game.getPlayer().moving == false){
+			Game.getPlayer().moving = true;
+			Game.getPlayer().movingUp = true;
+			Game.getPlayer().pixelsToMove = 64;
 		}
-		if(e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S){
+		if((e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) && Game.getPlayer().moving == false){
 			Game.getPlayer().dn = true;
+			Game.getPlayer().moving = true;
+			Game.getPlayer().movingDn = true;
+			Game.getPlayer().pixelsToMove = 64;
 		}
-		if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A){
+		if((e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) && Game.getPlayer().moving == false){
 			Game.getPlayer().lt = true;
+			Game.getPlayer().moving = true;
+			Game.getPlayer().movingLt = true;
+			Game.getPlayer().pixelsToMove = 64;
 		}
-		if(e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
+		if((e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) && Game.getPlayer().moving == false){
 			Game.getPlayer().rt = true;
+			Game.getPlayer().moving = true;
+			Game.getPlayer().movingRt = true;
+			Game.getPlayer().pixelsToMove = 64;
 		}
 		
 		if(e.getKeyCode() == KeyEvent.VK_N){

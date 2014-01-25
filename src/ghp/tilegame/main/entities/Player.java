@@ -13,7 +13,10 @@ public class Player extends Spiller implements Paintable
 	private int x, y;
 	private ImageManager im;
 	public boolean up = false, dn = false, lt = false, rt = false;
-	private final int SPEED = 3;
+	private final int SPEED = 4;
+	public boolean moving = false;
+	public boolean movingUp = false, movingDn = false, movingLt = false, movingRt = false;
+	public int pixelsToMove = 0;
 	
 	public Player(int x, int y, ImageManager im){
 		super(0, 0, 0, 0, 0, 0);
@@ -23,10 +26,31 @@ public class Player extends Spiller implements Paintable
 	}
 	
 	public void tick(){
-		if(up){y -= SPEED;}
-		if(dn){y += SPEED;}
-		if(lt){x -= SPEED;}
-		if(rt){x += SPEED;}
+		checkMoving();
+	}
+	
+	public void checkMoving(){
+		if(movingUp){
+			y -= SPEED;
+			pixelsToMove -= SPEED;
+			if(pixelsToMove <= 0){movingUp = false; moving = false;}
+		}
+		else if(movingDn){
+			y += SPEED;
+			pixelsToMove -= SPEED;
+			if(pixelsToMove <= 0){movingDn = false; moving = false;}
+		}
+		else if(movingLt){
+			x -= SPEED;
+			pixelsToMove -= SPEED;
+			if(pixelsToMove <= 0){movingLt = false; moving = false;}
+		}
+		else if(movingRt){
+			x += SPEED;
+			pixelsToMove -= SPEED;
+			if(pixelsToMove <= 0){movingRt = false; moving = false;}
+		}
+			
 	}
 	
 	public void render(Graphics g){
