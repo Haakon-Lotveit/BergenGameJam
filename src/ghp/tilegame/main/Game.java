@@ -105,7 +105,6 @@ public class Game extends Canvas implements Runnable{
 		
 //		RENDER HERE
 		g.fillRect(0, 0, WIDTH*SCALE, HEIGHT*SCALE);
-		player.render(g);
 		
 		//level1.renderLevel();
 		level1.renderLevel(g, floorTile);

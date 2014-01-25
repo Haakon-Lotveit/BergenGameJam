@@ -21,6 +21,8 @@ public class KeyManager implements KeyListener
 			if(!Game.level1.getTile(xpos, ypos - 1).isWalkable()){
 				return;
 			}
+//			p.moveUp()
+//			Game.getPlayer().moveUp;
 			Game.getPlayer().up = true;
 			Game.getPlayer().moving = true;
 			Game.getPlayer().movingUp = true;

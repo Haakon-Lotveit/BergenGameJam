@@ -1,6 +1,11 @@
 package ghp.tilegame.main.entities;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import no.gamejam.Spiller;
 import ghp.tilegame.main.Game;
@@ -19,6 +24,25 @@ public class Player extends Spiller implements Paintable
 	public int pixelsToMove = 0;
 
 	private int tileSize = 64;
+	private int animFrame = 0;
+	private char charAngle = 'F';
+	
+	private static BufferedImage image = null;            
+	private static final String imageLocation = "resources/sprites/HanKisen_Anims/HanKisen_Walk_F01.png";
+	PlayerAnims anims = new PlayerAnims();
+	
+	protected BufferedImage getImage() {
+		//if(null == image){
+			try {
+				image = ImageIO.read(new File(anims.getAnims(charAngle, animFrame, 0)));
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.exit(1);
+			}
+		//}
+		return image;
+	}
+	
 	public Player(int x, int y, ImageManager im){
 		super(0, 0, 0, 0, 0, 0);
 		this.x = x;
@@ -38,30 +62,41 @@ public class Player extends Spiller implements Paintable
 
 	public void checkMoving(){
 		if(movingUp){
+			charAngle = 'B';
 			y -= SPEED;
 			pixelsToMove -= SPEED;
 			if(pixelsToMove <= 0){movingUp = false; moving = false;}
 		}
 		else if(movingDn){
+			charAngle = 'F';
 			y += SPEED;
 			pixelsToMove -= SPEED;
 			if(pixelsToMove <= 0){movingDn = false; moving = false;}
 		}
 		else if(movingLt){
+			charAngle = 'L';
 			x -= SPEED;
 			pixelsToMove -= SPEED;
 			if(pixelsToMove <= 0){movingLt = false; moving = false;}
 		}
 		else if(movingRt){
+			charAngle = 'R';
 			x += SPEED;
 			pixelsToMove -= SPEED;
 			if(pixelsToMove <= 0){movingRt = false; moving = false;}
 		}
-
+	}
+	
+	public void playerMove(){
+		up = true;
+		moving = true;
+		movingUp = true;
+		pixelsToMove = 64;
 	}
 
 	public void render(Graphics g){
-		g.drawImage(im.player, x, y, Game.TILESIZE*Game.SCALE, Game.TILESIZE*Game.SCALE, null);
+		//g.drawImage(im.player, x, y, Game.TILESIZE*Game.SCALE, Game.TILESIZE*Game.SCALE, null);
+		g.drawImage(getImage(), x, y, Game.TILESIZE*Game.SCALE, Game.TILESIZE*Game.SCALE, null);
 
 	}
 
