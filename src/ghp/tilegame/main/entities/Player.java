@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import no.gamejam.Spiller;
 import ghp.tilegame.main.Game;
 import ghp.tilegame.main.gfx.ImageManager;
+import ghp.tilegame.main.levels.Level;
 import ghp.tilegame.main.levels.Paintable;
 
 public class Player extends Spiller implements Paintable
@@ -17,12 +18,14 @@ public class Player extends Spiller implements Paintable
 	public boolean moving = false;
 	public boolean movingUp = false, movingDn = false, movingLt = false, movingRt = false;
 	public int pixelsToMove = 0;
+	private Level level;
 	
 	public Player(int x, int y, ImageManager im){
 		super(0, 0, 0, 0, 0, 0);
 		this.x = x;
 		this.y = y;
 		this.im = im;
+		level = new Level(im);
 	}
 	
 	public void tick(){
@@ -62,6 +65,7 @@ public class Player extends Spiller implements Paintable
 		return attack();
 		// Check if there is an enemy on the tile in front of player
 //		If so, deal damage to enemy
+		//level.getTile(x, y)
 	}
 	
 	public int playerBlock(){

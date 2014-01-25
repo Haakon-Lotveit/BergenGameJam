@@ -24,7 +24,6 @@ public class Level implements TiledLevel
 		}
 	}*/
 
-
 	public Level (ImageManager im){
 		FLOOR_TILE = new FloorTile(im);
 		loadLevel();
