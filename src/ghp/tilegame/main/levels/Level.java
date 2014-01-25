@@ -10,7 +10,7 @@ public class Level
 		LoadLevel(levelImage);
 	}
 	
-	public void LoadLevel(BufferedImage levelImage){
+	public void LoadLevel(BufferedImage levelImage){	// Reads the level design from an image
 		tiles = new int[levelImage.getWidth()][levelImage.getHeight()];
 		for(int y=0; y<levelImage.getHeight(); y++){
 			for(int x=0; x<levelImage.getWidth(); x++){

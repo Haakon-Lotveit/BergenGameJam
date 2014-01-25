@@ -4,6 +4,8 @@ import ghp.tilegame.main.entities.Player;
 import ghp.tilegame.main.gfx.ImageLoader;
 import ghp.tilegame.main.gfx.ImageManager;
 import ghp.tilegame.main.gfx.SpriteSheet;
+import ghp.tilegame.main.levels.Level;
+import ghp.tilegame.main.tiles.FloorTile;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
@@ -15,25 +17,29 @@ import javax.swing.JFrame;
 
 public class Game extends Canvas implements Runnable{
 	private static final long serialVersionUID = 1L;
-	public static final int WIDTH = 360, HEIGHT = 240, SCALE = 2, TILESIZE = 16;
+	public static final int WIDTH = 360, HEIGHT = 240, SCALE = 2, TILESIZE =34;
 	public static boolean running = false;
 	public Thread gameThread;
 	
-	private BufferedImage spriteSheet;
-	//private BufferedImage tileSheet;
+//	private BufferedImage spriteSheet;
+	private BufferedImage tileSheet;
 	private ImageManager im;
 	
 	private static Player player;
+//	temp
+	private static FloorTile floorTile;
+	private static Level level1;
 	
 	public void init(){
 		ImageLoader loader = new ImageLoader();
-		spriteSheet = loader.load("/resources/sprites/spritesheet.png");
+		//spriteSheet = loader.load("resources/sprites/spritesheet.png");
+		tileSheet = loader.load("resources/sprites/tilesheet.png");
 		
-		//tileSheet = loader.load("/tilesheet.png");
-		
-		SpriteSheet ss = new SpriteSheet(spriteSheet);
+		SpriteSheet ss = new SpriteSheet(tileSheet);
 		im = new ImageManager(ss);
 		player = new Player(0, 0, im);
+//		temp
+		floorTile = new FloorTile(im);
 		
 		this.addKeyListener(new KeyManager());
 	}
@@ -86,6 +92,9 @@ public class Game extends Canvas implements Runnable{
 //		RENDER HERE
 		g.fillRect(0, 0, WIDTH*SCALE, HEIGHT*SCALE);
 		player.render(g);
+		
+		// Skrive ut en level istedet
+		floorTile.render(g, 0, 0);
 //		END RENDER
 		g.dispose();
 		bs.show();
