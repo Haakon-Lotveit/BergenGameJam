@@ -32,6 +32,7 @@ public class Game extends Canvas implements Runnable{
 	
 	public void init(){
 		ImageLoader loader = new ImageLoader();
+		
 		//spriteSheet = loader.load("resources/sprites/spritesheet.png");
 		tileSheet = loader.load("resources/sprites/tilesheet.png");
 		
