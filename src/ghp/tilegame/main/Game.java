@@ -37,7 +37,8 @@ public class Game extends Canvas implements Runnable{
 		SpriteSheet ss = new SpriteSheet(tileSheet);
 		im = new ImageManager(ss);
 		player = new Player(0, 0, im);
-//		temp
+
+		//		temp
 		floorTile = new FloorTile(im);
 		level1 = new Level(im);
 		
@@ -93,6 +94,7 @@ public class Game extends Canvas implements Runnable{
 		
 //		RENDER HERE
 		g.fillRect(0, 0, WIDTH*SCALE, HEIGHT*SCALE);
+		player.render(g);
 		
 		//level1.renderLevel();
 		level1.renderLevel(g, floorTile);
