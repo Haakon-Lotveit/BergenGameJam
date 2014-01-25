@@ -21,7 +21,7 @@ public class FloorTile extends IMTile{
 	}
 
 	@Override
-	public boolean getWalkable() {
+	public boolean isWalkable() {
 		return true;
 	}
 
