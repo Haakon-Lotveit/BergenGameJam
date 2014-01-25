@@ -20,6 +20,42 @@ public class TileFactory {
 		case "GrassTile":
 			if(null != TileFactory.im) { return new GrassTile(im); }
 			break;
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		default:
 			throw new IllegalArgumentException(String.format("No tile called %s registered", tiletype));
 		}

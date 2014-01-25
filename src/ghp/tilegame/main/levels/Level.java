@@ -46,7 +46,6 @@ public class Level implements TiledLevel
 	public void renderLevel(Graphics g, Tile floorTile){
 		for(int y=0; y<tilesY; y++){
 			for(int x=0; x<tilesX; x++){
-//				System.out.printf("[DEBUG]: %d×%d: %s%n", x, y, tiles[x][y].getClass().toString());
 				tiles[x][y].render(g,  x*64, y*64);
 			}
 		}
@@ -54,8 +53,6 @@ public class Level implements TiledLevel
 
 	@Override
 	public void setTile(int x, int y, Tile tile) {
-		System.out.printf("Setting %s to %s%n", tiles[x][y].getClass().toString(), tile.getClass().toString());
-		System.out.println(tiles[x][y].getClass().toString());
 		tiles[x][y] = tile;
 	}
 
