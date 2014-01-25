@@ -5,6 +5,8 @@ import ghp.tilegame.main.gfx.ImageLoader;
 import ghp.tilegame.main.gfx.ImageManager;
 import ghp.tilegame.main.gfx.SpriteSheet;
 import ghp.tilegame.main.levels.Level;
+import ghp.tilegame.main.levels.LoadLevel;
+import ghp.tilegame.main.levels.UndefinedGlyphException;
 import ghp.tilegame.main.tiles.FloorTile;
 
 import java.awt.Canvas;
@@ -12,6 +14,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 import javax.swing.JFrame;
 
@@ -40,7 +44,13 @@ public class Game extends Canvas implements Runnable{
 
 		//		temp
 		floorTile = new FloorTile(im);
-		level1 = new Level(im);
+//		level1 = new Level(im);
+		try {
+			level1 = new LoadLevel().loadLevel(new File("test.level"), im);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
 		
 		this.addKeyListener(new KeyManager());
 	}

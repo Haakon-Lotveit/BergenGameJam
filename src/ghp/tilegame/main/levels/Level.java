@@ -7,7 +7,7 @@ import ghp.tilegame.main.tiles.Tile;
 import java.awt.Graphics;
 import java.io.File;
 
-public class Level 
+public class Level implements TiledLevel
 {
 	private final File standardFile = new File("resources/text/Level1Map");
 
@@ -24,16 +24,13 @@ public class Level
 		}
 	}*/
 
-	public void setTile(int x, int y, Tile tileType){
-		//tileType.render(g, 0, 0);
-	}
 
 	public Level (ImageManager im){
 		FLOOR_TILE = new FloorTile(im);
 		loadLevel();
 	}
 
-	public void loadLevel(){
+	private void loadLevel(){
 
 		tiles = new Tile[tilesX][tilesY];
 		for(int y=0; y<tilesY; y++){
@@ -49,9 +46,32 @@ public class Level
 	public void renderLevel(Graphics g, Tile floorTile){
 		for(int y=0; y<tilesY; y++){
 			for(int x=0; x<tilesX; x++){
-				tiles[x][y].render(g, x*64, y*64);
+//				System.out.printf("[DEBUG]: %d×%d: %s%n", x, y, tiles[x][y].getClass().toString());
+				tiles[x][y].render(g,  x*64, y*64);
 			}
 		}
+	}
+
+	@Override
+	public void setTile(int x, int y, Tile tile) {
+		System.out.printf("Setting %s to %s%n", tiles[x][y].getClass().toString(), tile.getClass().toString());
+		System.out.println(tiles[x][y].getClass().toString());
+		tiles[x][y] = tile;
+	}
+
+	@Override
+	public Tile getTile(int x, int y) {
+		return tiles[x][y];
+	}
+
+	@Override
+	public int getXSize() {
+		return this.tilesX;
+	}
+
+	@Override
+	public int getYSize() {
+		return this.tilesY;
 	}
 }
 
