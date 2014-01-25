@@ -7,8 +7,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class StoneWallTile extends PNGTile {
-	private static BufferedImage image = null;
-	private static final String imageLocation = "resources/sprites/tiles/floor_brick.png"; 
+	private static BufferedImage image = null;            
+	private static final String imageLocation = "resources/sprites/tiles/wall_stone.png"; 
 	
 	public StoneWallTile(){
 		super();

@@ -17,6 +17,9 @@ public class TileFactory {
 		case "FloorTile":
 			if(null != TileFactory.im) { return new FloorTile(im); }
 			break;
+		case "GrassTile":
+			if(null != TileFactory.im) { return new GrassTile(im); }
+			break;
 		default:
 			throw new IllegalArgumentException(String.format("No tile called %s registered", tiletype));
 		}

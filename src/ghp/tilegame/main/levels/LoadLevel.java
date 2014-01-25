@@ -40,6 +40,6 @@ public class LoadLevel {
 			TileFactory.setImageManager(im);
 			return TileFactory.create(glyphDictionary.get(tileDef));
 		}
-		else throw new UndefinedGlyphException(String.format("%s is not a valid glyph."));
+		else throw new UndefinedGlyphException(String.format("%s is not a valid glyph.", tileDef));
 	}
 }
