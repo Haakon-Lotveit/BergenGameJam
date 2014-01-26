@@ -14,6 +14,8 @@ public class TileFactory {
 			return new StoneWallTile();
 		case "StoneWallTopTile":
 			return new StoneWallTopTile();
+		case "BuskTile":
+			return new BuskTile();
 		case "FloorTile":
 			if(null != TileFactory.im) { return new FloorTile(im); }
 			break;

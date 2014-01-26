@@ -27,24 +27,24 @@ public class FightEngine {
 		int x = aggressor.getX();
 		int y = aggressor.getY();
 		switch(dir){
-		case 'u':
+		case 'B':
 			--y;
 			break;
-		case 'd':
+		case 'F':
 			++y;
 			break;
-		case 'l':
+		case 'L':
 			--x;
 			break;
-		case 'r':
+		case 'R':
 			++x;
 			break;
 		}
-		System.out.printf("Looking for someone at %d×%d%n", x, y);
+		System.out.printf("We're at (%d×%d), and attacking to %c, so we're looking for someone at %d×%d%n",aggressor.getX(), aggressor.getY(), dir, x, y);
 		for(Actor a :  lvl.getActors()){
 			System.out.printf("This guy is at %d×%d%n", a.getX(), a.getY());
 			if(a.getX() == x && a.getY() == y){
-				System.out.printf("Fant %s!", a.toString());
+				System.out.printf("Fant %s!", a.statString());
 				fight(aggressor, a);
 			}
 		}

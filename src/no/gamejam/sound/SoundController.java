@@ -92,6 +92,7 @@ public class SoundController implements Runnable {
 	public void run() {
 		// Let's get ambitious and do an event loop.
 		while (true) {
+			updateProgress();
 			Integer command = -1;
 			/*
 			 *  This should give us a classic race condition.

@@ -8,8 +8,6 @@ import ghp.tilegame.main.gfx.ImageManager;
 import ghp.tilegame.main.gfx.SpriteSheet;
 import ghp.tilegame.main.levels.Level;
 import ghp.tilegame.main.levels.LoadLevel;
-import ghp.tilegame.main.levels.UndefinedGlyphException;
-import ghp.tilegame.main.tiles.FloorTile;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
@@ -17,14 +15,14 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 
 import javax.swing.JFrame;
 
 import no.gamejam.FightEngine;
 import no.gamejam.TalkEngine;
-
+	
 public class Game extends Canvas implements Runnable{
+	
 	private static final long serialVersionUID = 1L;
 	public static final int WIDTH = 320, HEIGHT = 192, SCALE = 2, TILESIZE =34;
 	public static boolean running = false;
@@ -37,16 +35,12 @@ public class Game extends Canvas implements Runnable{
 	private ImageManager im;
 	
 	private static Player player;
-	private static Nils nils;
 //	temp
-	private static FloorTile floorTile;
 	public static Level level1;
 	public static Game game;
 	
 	public void init(){
 		ImageLoader loader = new ImageLoader();
-		
-		nils = new Nils(7,2);
 		
 		tileSheet = loader.load("resources/sprites/tilesheet.png");
 		
@@ -55,11 +49,11 @@ public class Game extends Canvas implements Runnable{
 		player = new Player(0, 0, im);
 
 		//		temp
-		floorTile = new FloorTile(im);
 //		level1 = new Level(im);
 		
 		
 		try {
+			
 			level1 = new LoadLevel().loadLevel(new File("test.level"), im);
 			fe = new FightEngine();
 			te = new TalkEngine();
@@ -68,19 +62,23 @@ public class Game extends Canvas implements Runnable{
 			System.exit(1);
 		}
 		
-		
-		level1.registerActor(nils);
+		/* 
+		 * Dette er ti millioner ganger bedre enn den forrige kludgen.
+		 * Nå er aktørene i et brett et del av brettet, og ikke av Game
+		 */
+		level1.registerActor(new Nils(5, 5, 5, 5, 5, 5, 3, 2, 64));
 		this.addKeyListener(new KeyManager());
 	}
 	
-	public synchronized void start(){
+	public void start(){
 		if(running)return;
 		running = true;
 		gameThread = new Thread(this);
-		gameThread.start();
+		gameThread.start();		
+		
 	}
 	
-	public synchronized void stop(){
+	public void stop(){
 		if(!running)return;
 		running = false;
 		try {
@@ -109,25 +107,25 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	public void tick(){
-		player.tick();
-		nils.tick(level1);
+		level1.tick(this);
+		player.tick(this);
 	}
 	
 	public void render(){
 		BufferStrategy bs = this.getBufferStrategy();
 		if(bs == null){
-			createBufferStrategy(3);
+			createBufferStrategy(3); /* Trippelbufret? Vi skal ikke ha noen tearing altså.. :p */
 			return;
 		}
 		Graphics g = bs.getDrawGraphics();
 		
 //		RENDER HERE
 		g.fillRect(0, 0, WIDTH*SCALE, HEIGHT*SCALE);
-		//level1.renderLevel();
-		level1.renderLevel(g, floorTile);
-		//floorTile.render(g, 0, 0);
+		/*
+		 * Vi lar brettet male seg selv, og ta ansvaret for å male alle elementene på brettet.
+		 */
+		level1.renderLevel(g);
 		player.render(g);
-		nils.render(g);
 //		END RENDER
 		g.dispose();
 		bs.show();

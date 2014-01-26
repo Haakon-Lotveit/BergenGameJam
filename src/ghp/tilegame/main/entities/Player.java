@@ -70,7 +70,7 @@ public class Player extends Spiller implements Paintable, Actor
 		return charAngle;
 	}
 	
-	public void tick(){
+	public void tick(Game g){
 		checkMoving();
 		if (animType == 'W'){
 			if (System.currentTimeMillis() - time > limit){
@@ -177,8 +177,7 @@ public class Player extends Spiller implements Paintable, Actor
 
 	@Override
 	public void tick(Object gameBoard) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("WRONG TICK CALLED");
 	}
 
 	@Override
@@ -192,25 +191,18 @@ public class Player extends Spiller implements Paintable, Actor
 	}
 
 	@Override
-	public boolean collidesWith(Actor a) {
-		System.out.printf("%d×%d vs %d×%d%n (dir: %c)%n", getX(), getY(), a.getX(), a.getY(), charAngle);
-		switch(charAngle){
-		case 'B':
-			return a.getX() == this.getX() && a.getY() == this.getY() - 1;
-		case 'D':
-			return a.getX() == this.getX() && a.getY() == this.getY() + 1;
-		case 'L':
-			return a.getX() == this.getX() - 1 && a.getY() == this.getY();
-		case 'R':
-			return a.getX() == this.getX() + 1 && a.getY() == this.getY();
-		default:
-			return false;
-		}
+	public char facesDirection() {
+		return charAngle;
 	}
 
 	@Override
-	public char facesDirection() {
-		return charAngle;
+	public boolean blocksMovement() {
+		return true; /* Hank Isen blokkerer alltid røyrsle */
+	}
+
+	@Override
+	public void act() {
+		System.out.println("Player has been called upon to act, which should not happen.");
 	}
 
 }

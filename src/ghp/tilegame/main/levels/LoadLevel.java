@@ -17,6 +17,7 @@ public class LoadLevel {
 	
 	public LoadLevel(){
 		glyphDictionary = new HashMap<>();
+		glyphDictionary.put("B", "BuskTile");
 		glyphDictionary.put("G", "FloorTile");
 		glyphDictionary.put("V", "StoneWallTile");
 		glyphDictionary.put("T", "StoneWallTopTile");
