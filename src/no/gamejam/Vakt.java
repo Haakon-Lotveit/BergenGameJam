@@ -85,12 +85,18 @@ public class Vakt implements Actor {
 		int x = getX();
 		int y = getY();
 		switch(dir){
-		case 'F': y--; break;
-		case 'B': y++; break;
+		case 'F': y++; break;
+		case 'B': y--; break;
 		case 'L': x--; break;
 		case 'R': x++; break;
 		default: throw new IllegalArgumentException("Use FBLR and only those!");
 		}
+		/* First, check if the player is where we want to go */
+		if(Game.getPlayer().getX() == x && Game.getPlayer().getY() == y){
+			return false;
+		}
+		
+		/* Then, check if the level objects to us going there */
 		if(lvl.isWalkable(x, y)){
 //			this.x = x;
 //			this.y = y;
@@ -188,6 +194,7 @@ public class Vakt implements Actor {
 	@Override
 	public void takeDamage(int damage) {
 		if(state == FightState.DYING){
+			helse = 0;
 			return;
 		}
 		this.state = FightState.ATTACKING;

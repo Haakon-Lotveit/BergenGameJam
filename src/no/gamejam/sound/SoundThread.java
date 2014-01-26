@@ -56,10 +56,6 @@ public class SoundThread extends Thread {
 	
 	@Override
 	public void run(){
-		while(true){
-			System.out.println("RUNNING");
 			SC.run();
-		}
-		
 	}
 }
