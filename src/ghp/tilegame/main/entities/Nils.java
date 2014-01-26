@@ -32,7 +32,7 @@ public class Nils extends Vakt implements Paintable {
 //		System.out.println(manhattan);
 		if(manhattan <= 2){
 //				Game.startDiplomancy(te.getResponse("VAKT", "HILS"));
-		}
+		}	
 	}
 	
 	@Override
@@ -114,4 +114,6 @@ public class Nils extends Vakt implements Paintable {
 		}
 		return health() > 0? image : death;
 	}
+	
+	
 }

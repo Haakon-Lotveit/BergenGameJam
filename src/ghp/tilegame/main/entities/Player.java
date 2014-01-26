@@ -122,19 +122,15 @@ public class Player extends Spiller implements Paintable, Actor
 		pixelsToMove = 64;
 		moving = true;
 		time = System.currentTimeMillis();
-		
+		animFrame = 1;
 		switch(direction){
-		case 'U':  	movingUp = true;
-					animFrame = 1;
+		case 'U':  	movingUp = true;	
 		break;
 		case 'D':  	movingDn = true;
-					animFrame = 1;
 		break;
 		case 'L': 	movingLt = true;
-					animFrame = 1;
         break;
 		case 'R':  	movingRt = true;
-					animFrame = 1;
 		break;
 		default: 	System.out.println("No direction to move");
 					pixelsToMove = 0;
