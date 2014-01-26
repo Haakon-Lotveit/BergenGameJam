@@ -22,11 +22,12 @@ import no.gamejam.FightEngine;
 import no.gamejam.TalkEngine;
 import no.gamejam.sound.LargeSound;
 import no.gamejam.sound.SoundController;
+import no.gamejam.sound.SoundDispenser;
 import no.gamejam.sound.SoundFile;
 import no.gamejam.sound.SoundThread;
 	
 public class Game extends Canvas implements Runnable{
-	
+	public static SoundDispenser sounds = new SoundDispenser();
 	private static final long serialVersionUID = 1L;
 	public static final int WIDTH = 320, HEIGHT = 192, SCALE = 2, TILESIZE =34;
 	public static boolean running = false;
@@ -137,10 +138,7 @@ public class Game extends Canvas implements Runnable{
 	
 	public static void main(String[] args) throws Exception
 	{
-		LargeSound ls = new LargeSound(new File("test.wav").toURI().toURL());
-		Thread t = new Thread(ls);
-		t.start();
-		ls.sendMessage(LargeSound.MSG_PLAY);
+		
 		game = new Game();
 		game.setPreferredSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
 		game.setMaximumSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));

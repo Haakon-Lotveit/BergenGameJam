@@ -137,24 +137,4 @@ public class SoundFile {
         clip.setFramePosition(0);
     }
     
-    public static void main(String[] args) throws Exception {
-        if (System.getProperties().getProperty("java.vm.name").contains("Java HotSpot(TM)")) {
-            System.out.println("Oracle java detected");
-        } else {
-            System.out.println("Nonoracle java detected");
-        }
-
-        System.out.println();
-        System.out.println("Starting actual playback:");
-        File soundfile = new File("resources/music/Sitron_Krig_v0.1.wav");
-        SoundFile sf = new SoundFile(soundfile);
-        sf.play(1);
-        Thread.sleep(5000L);
-        sf.pause();
-        Thread.sleep(1000L);
-        sf.play(2);
-        Thread.sleep(6000L);
-
-    }
-
 }

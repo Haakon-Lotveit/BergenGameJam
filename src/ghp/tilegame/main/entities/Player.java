@@ -137,6 +137,9 @@ public class Player extends Spiller implements Paintable, Actor
 					moving = false;
         break;
 		}
+		if(moving){
+			Game.sounds.playRandom("STEP");
+		}
 	}
 
 	public void render(Graphics g){

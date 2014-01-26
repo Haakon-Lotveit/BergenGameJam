@@ -21,6 +21,16 @@ public class SoundDispenser {
 		småLyder.put("HIT", samling);
 		
 		samling = new ArrayList<>();
+		samling.add(new SoundController(new SoundFile(new File("resources/sound/swoosh_1.wav"))));
+		samling.add(new SoundController(new SoundFile(new File("resources/sound/swoosh_2.wav"))));
+		småLyder.put("SWOOSH", samling);
+		
+		samling = new ArrayList<>();
+		samling.add(new SoundController(new SoundFile(new File("resources/sound/step_1.wav"))));
+		samling.add(new SoundController(new SoundFile(new File("resources/sound/step_2.wav"))));
+		samling.add(new SoundController(new SoundFile(new File("resources/sound/step_3.wav"))));
+		småLyder.put("STEP", samling);
+		
 		}catch(Exception e){
 			e.printStackTrace();
 			System.exit(1);
@@ -31,21 +41,29 @@ public class SoundDispenser {
 			return null;
 		}		
 		ArrayList<SoundController> valg = småLyder.get(type);
-		return valg.get(new Random().nextInt(valg.size()));
+		int which = new Random().nextInt(valg.size());
+		System.out.printf("%d/%d%n", which, valg.size());
+		return valg.get(which);
 	}
 	
 	public static void main(String[] args) {
 		Scanner kb = new Scanner(System.in);
 		SoundDispenser disp = new SoundDispenser();
-		System.out.print("Hvor mange ganger skal vi spille?");
-		int ganger = 5;
-//		ganger = Integer.parseInt(kb.nextLine());
+		int ganger = 10;
+		long venting = 2000L;
 		for(int i = 0; i < ganger; ++i){
-			System.out.println(i);
-			SoundController lyd = disp.getRandomSound("HIT");
-			new Thread(lyd).start();
-			lyd.sendMessage(SoundController.MSG_PLAY);
+			
+			disp.playRandom("HIT");
+			
+			Long time = System.currentTimeMillis();
+			while(System.currentTimeMillis() - time < venting){
+				continue;
+			}
 		}
-		System.out.println("DONE");
+	}
+	public void playRandom(String type){
+		SoundController sc = getRandomSound(type);
+		new SoundThread(sc).start();
+		sc.sendMessage(SoundController.MSG_PLAY);
 	}
 }

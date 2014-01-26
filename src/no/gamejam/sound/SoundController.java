@@ -49,6 +49,11 @@ public class SoundController implements Runnable {
 	 * beginning.
 	 */
 	public static final int MSG_STOP = 4;
+	
+	/**
+	 * Plays the file once, and then release all resources.
+	 */
+	public static final int MSG_PLAY_ONCE = 5;
 
 
 	private int status;
@@ -80,7 +85,6 @@ public class SoundController implements Runnable {
 	}
 
 	public void sendMessage(Integer message) {
-		System.out.println("YOU GOT MAIL");
 		lock.lock();
 		try {
 			this.messagebox.add(message);
@@ -93,7 +97,6 @@ public class SoundController implements Runnable {
 	public void run() {
 		// Let's get ambitious and do an event loop.
 		while (true) {
-			System.out.println(sound.isPlaying());
 			Integer command = -1;
 			/*
 			 *  This should give us a classic race condition.
@@ -107,7 +110,6 @@ public class SoundController implements Runnable {
 			try {
 				if(messagebox.size() > 0){
 					command = messagebox.remove();
-					System.out.println("MAIL!");
 				}
 			} finally {
 				lock.unlock();
@@ -124,7 +126,7 @@ public class SoundController implements Runnable {
 				 */
 
 				case MSG_PLAY_PAUSE:
-					System.out.println("The play/pause button has been pushed! GLORIOUS!");
+//					System.out.println("The play/pause button has been pushed! GLORIOUS!");
 					if (status == PLAYING) {
 						pause();
 					}
@@ -134,7 +136,7 @@ public class SoundController implements Runnable {
 					break;
 
 				case MSG_PLAY:
-					System.out.println("Playing!");
+//					System.out.println("Playing!");
 					play();
 					break;
 
@@ -146,6 +148,12 @@ public class SoundController implements Runnable {
 					stop();
 					break;
 
+				case MSG_PLAY_ONCE:
+					play();
+					while(isPlaying()){
+						continue;
+					}
+					return;
 				default:
 					System.err.printf("Unrecognized message “%d”,%n", command);
 					break;
