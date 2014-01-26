@@ -47,7 +47,10 @@ public class Game extends Canvas implements Runnable{
 		ImageLoader loader = new ImageLoader();
 		
 		nils = new Nils(7,2);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 76689378d4558aa60d93e443dda535cc516e79a2
 		
 		tileSheet = loader.load("resources/sprites/tilesheet.png");
 		
