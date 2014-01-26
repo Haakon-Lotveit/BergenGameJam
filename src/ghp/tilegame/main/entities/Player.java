@@ -20,23 +20,25 @@ public class Player extends Spiller implements Paintable, Actor
 	private int x, y;
 	private ImageManager im;
 	private final int SPEED = 2;
-	public boolean moving = false;
-	public boolean movingUp = false, movingDn = false, movingLt = false, movingRt = false;
+	public boolean moving = false, movingUp = false, movingDn = false, movingLt = false, movingRt = false;
 	public int pixelsToMove = 0;
 
 	private int tileSize = 64;
-	private int animFrame = 0;
-	private char charAngle = 'F';
-	private long time, limit;
+	private char animType = 'W', charAngle = 'F';
+	private long time;
+	private int limit, limit2, limit3, animFrame = 0;
+	
+//	public enum States {NORMAL, COMBAT, STEALTH, ARISTOCRAT;}
+//	States currentState;
+	
 	
 	private static BufferedImage image = null;            
-	private static final String imageLocation = "resources/sprites/HanKisen_Anims/HanKisen_Walk_F01.png";
 	PlayerAnims anims = new PlayerAnims();
 	
 	protected BufferedImage getImage() {
 		//if(null == image){
 			try {
-				image = ImageIO.read(new File(anims.getAnims(charAngle, animFrame, 0)));
+				image = ImageIO.read(new File(anims.getAnims(animType, charAngle, animFrame)));
 			} catch (IOException e) {
 				e.printStackTrace();
 				System.exit(1);
@@ -50,8 +52,11 @@ public class Player extends Spiller implements Paintable, Actor
 		this.x = x;
 		this.y = y;
 		this.im = im;
-		limit = 250;
+		limit = 166;
+		limit2 = 333;
+		limit3 = 500;
 		time = 0;
+//		currentState = States.NORMAL;
 	}
 
 	public int getXCoord(){
@@ -64,18 +69,25 @@ public class Player extends Spiller implements Paintable, Actor
 	public char getDir(){
 		return charAngle;
 	}
+	
 	public void tick(){
 		checkMoving();
-		
-		if (System.currentTimeMillis() - time > limit){
-			time = System.currentTimeMillis();
-			if(moving){
-				System.out.println("HHH");
-				animFrame = 0;
+		if (animType == 'W'){
+			if (System.currentTimeMillis() - time > limit){
+				if(moving){animFrame = 0;}
 			}
-			
+			if (System.currentTimeMillis() - time > limit2){
+				if(moving){animFrame = 2;}
+			}
 		}
-		
+		else if (animType == 'A'){
+			if (System.currentTimeMillis() - time > limit2){
+				if(moving){animFrame = 1;}
+			}
+			if (System.currentTimeMillis() - time > limit3){
+				if(moving){animFrame = 0; moving = false; animType = 'W';}
+			}
+		}
 		
 	}
 
@@ -84,31 +96,33 @@ public class Player extends Spiller implements Paintable, Actor
 			charAngle = 'B';
 			y -= SPEED;
 			pixelsToMove -= SPEED;
-			if(pixelsToMove <= 0){movingUp = false; moving = false;}
+			if(pixelsToMove <= 0){movingUp = false; moving = false; animFrame = 0;}
 		}
 		else if(movingDn){
 			charAngle = 'F';
 			y += SPEED;
 			pixelsToMove -= SPEED;
-			if(pixelsToMove <= 0){movingDn = false; moving = false;}
+			if(pixelsToMove <= 0){movingDn = false; moving = false; animFrame = 0;}
 		}
 		else if(movingLt){
 			charAngle = 'L';
 			x -= SPEED;
 			pixelsToMove -= SPEED;
-			if(pixelsToMove <= 0){movingLt = false; moving = false;}
+			if(pixelsToMove <= 0){movingLt = false; moving = false; animFrame = 0;}
 		}
 		else if(movingRt){
 			charAngle = 'R';
 			x += SPEED;
 			pixelsToMove -= SPEED;
-			if(pixelsToMove <= 0){movingRt = false; moving = false;}
+			if(pixelsToMove <= 0){movingRt = false; moving = false; animFrame = 0;}
 		}
 	}
 	
 	public void move(char direction){
 		pixelsToMove = 64;
 		moving = true;
+		time = System.currentTimeMillis();
+		
 		switch(direction){
 		case 'U':  	movingUp = true;
 					animFrame = 1;
@@ -130,8 +144,10 @@ public class Player extends Spiller implements Paintable, Actor
 	}
 
 	public void render(Graphics g){
-		//g.drawImage(im.player, x, y, Game.TILESIZE*Game.SCALE, Game.TILESIZE*Game.SCALE, null);
-		g.drawImage(getImage(), x, y, Game.TILESIZE*Game.SCALE, Game.TILESIZE*Game.SCALE, null);
+		if (animType == 'A')	// Hack, to make the attack animation look better
+			g.drawImage(getImage(), x-40, y-70, Game.TILESIZE*Game.SCALE*2, Game.TILESIZE*Game.SCALE*2, null);
+		else
+			g.drawImage(getImage(), x, y, Game.TILESIZE*Game.SCALE, Game.TILESIZE*Game.SCALE, null);
 
 	}
 
@@ -141,6 +157,10 @@ public class Player extends Spiller implements Paintable, Actor
 	 */
 	public int playerAttack(){
 		System.out.println("ATTACKING");
+		moving = true;
+		animType = 'A';
+		time = System.currentTimeMillis();
+		
 		return attack();
 
 		//level.getTile(x, y)

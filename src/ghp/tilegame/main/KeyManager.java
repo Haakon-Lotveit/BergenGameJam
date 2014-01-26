@@ -15,36 +15,26 @@ public class KeyManager implements KeyListener
 		
 		if((e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) && Game.getPlayer().moving == false){
 			if(!Game.level1.isWalkable(xpos, ypos - 1)){ return; }
-			//			p.moveUp()
-			//			Game.getPlayer().moveUp;
-			Game.getPlayer().moving = true;
-			Game.getPlayer().movingUp = true;
-			Game.getPlayer().pixelsToMove = 64;
+			Game.getPlayer().move('U');
 		}
 		if((e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) && Game.getPlayer().moving == false){
 			if(!Game.level1.isWalkable(xpos, ypos + 1)){ return; }
-			
-			Game.getPlayer().moving = true;
-			Game.getPlayer().movingDn = true;
-			Game.getPlayer().pixelsToMove = 64;
+			Game.getPlayer().move('D');
 		}
 		if((e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) && Game.getPlayer().moving == false){
 			if(!Game.level1.isWalkable(xpos - 1, ypos)){ return; }
-			Game.getPlayer().moving = true;
-			Game.getPlayer().movingLt = true;
-			Game.getPlayer().pixelsToMove = 64;
+			Game.getPlayer().move('L');
 		}
 		if((e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) && Game.getPlayer().moving == false){
 			if(!Game.level1.isWalkable(xpos + 1, ypos)){ return; }
-			Game.getPlayer().moving = true;
-			Game.getPlayer().movingRt = true;
-			Game.getPlayer().pixelsToMove = 64;
+			Game.getPlayer().move('R');
 		}
 		
-		if(e.getKeyCode() == KeyEvent.VK_N){
+		if(e.getKeyCode() == KeyEvent.VK_N && Game.getPlayer().moving == false){
 			Game.fe.attack(p, p.getDir(), Game.level1);
+			Game.getPlayer().playerAttack();
 		}	
-		if(e.getKeyCode() == KeyEvent.VK_M){
+		if(e.getKeyCode() == KeyEvent.VK_M && Game.getPlayer().moving == false){
 			Game.getPlayer().playerBlock();
 		}	
 	}

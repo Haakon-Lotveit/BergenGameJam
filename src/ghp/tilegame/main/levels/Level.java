@@ -77,7 +77,7 @@ public class Level implements TiledLevel
 			}
 		}
 	}
-
+	
 	@Override
 	public void setTile(int x, int y, Tile tile) {
 		tiles[x][y] = tile;

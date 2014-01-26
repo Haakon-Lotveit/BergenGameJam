@@ -26,9 +26,9 @@ public class Nils extends Vakt implements Paintable {
 		super.tick(gameboard);
 		TalkEngine te = Game.te;
 		int manhattan = manhattanAirDistance(Game.getPlayer());
-		System.out.println(manhattan);
+//		System.out.println(manhattan);
 		if(manhattan <= 2){
-				Game.startDiplomancy(te.getResponse("VAKT", "HILS"));
+//				Game.startDiplomancy(te.getResponse("VAKT", "HILS"));
 		}
 	}
 	

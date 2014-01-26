@@ -47,10 +47,6 @@ public class Game extends Canvas implements Runnable{
 		ImageLoader loader = new ImageLoader();
 		
 		nils = new Nils(7,2);
-<<<<<<< HEAD
-
-=======
->>>>>>> 76689378d4558aa60d93e443dda535cc516e79a2
 		
 		tileSheet = loader.load("resources/sprites/tilesheet.png");
 		
@@ -114,7 +110,7 @@ public class Game extends Canvas implements Runnable{
 	
 	public void tick(){
 		player.tick();
-//		nils.tick(level1);
+		nils.tick(level1);
 	}
 	
 	public void render(){
@@ -131,7 +127,7 @@ public class Game extends Canvas implements Runnable{
 		level1.renderLevel(g, floorTile);
 		//floorTile.render(g, 0, 0);
 		player.render(g);
-//		nils.render(g);
+		nils.render(g);
 //		END RENDER
 		g.dispose();
 		bs.show();
