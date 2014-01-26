@@ -76,7 +76,7 @@ public class Nils extends Vakt implements Paintable {
 	}
 	
 	public Nils(int smisk, int skrem, int bløff, int styrke, int seighet, int helse, int x, int y, int tileSize){
-		super(smisk, skrem, bløff, styrke, seighet, helse, x, y);
+		super(smisk, skrem, bløff, styrke, seighet, helse, x*tileSize, y*tileSize);	// Her multipliserer jeg x og y for å få pixel verdier
 		this.tileSize = tileSize;
 	}
 	
@@ -97,7 +97,9 @@ public class Nils extends Vakt implements Paintable {
 	
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(getImage(), super.getX()*tileSize, super.getY()*tileSize, Game.TILESIZE*Game.SCALE, Game.TILESIZE*Game.SCALE, null);
+//		g.drawImage(getImage(), super.getX()*tileSize, super.getY()*tileSize, Game.TILESIZE*Game.SCALE, Game.TILESIZE*Game.SCALE, null);
+		// Pixel bevegelse
+		g.drawImage(getImage(), super.getX(), super.getY(), Game.TILESIZE*Game.SCALE, Game.TILESIZE*Game.SCALE, null);
 	}
 
 	protected BufferedImage getImage(){
