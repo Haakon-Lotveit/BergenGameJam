@@ -1,8 +1,12 @@
 package no.gamejam;
 
+import ghp.tilegame.main.Game;
+import ghp.tilegame.main.levels.Level;
+
+import java.awt.Graphics;
 import java.util.Random;
 
-public class Vakt implements Fighter, Actor {
+public class Vakt implements Actor {
 	private int x,y;
 	private int smisk;
 	private int skrem;
@@ -10,13 +14,18 @@ public class Vakt implements Fighter, Actor {
 	private int styrke;
 	private int seighet;
 	private int helse;
-	private FightState state;
+	protected FightState state;
 	private int tileSize;
+	private char direction;
 
+	private void init(){
+		this.direction = 'F';
+	}
 	/**
 	 * Lager et vaktobjekt med tilfeldig genererte verdier fra 0-14 inklusiv
 	 */
 	public Vakt(int smisk, int skrem, int bløff, int styrke, int seighet, int helse){
+		init();
 		x = y = 0;
 		this.smisk = smisk;
 		this.skrem = skrem;
@@ -27,6 +36,7 @@ public class Vakt implements Fighter, Actor {
 		this.state = FightState.IDLE;
 	}
 	public Vakt(int smisk, int skrem, int bløff, int styrke, int seighet, int helse, int x, int y){
+		init();
 		this.x = x; this.y = y;
 		this.smisk = smisk;
 		this.skrem = skrem;
@@ -37,6 +47,7 @@ public class Vakt implements Fighter, Actor {
 		this.state = FightState.IDLE;
 	}
 	public Vakt(){
+		init();
 		Random r = new Random();
 		this.smisk = r.nextInt(15);
 		this.skrem = r.nextInt(15);
@@ -48,6 +59,7 @@ public class Vakt implements Fighter, Actor {
 	}
 
 	public Vakt(int x, int y){
+		init();
 		this.x = x; this.y = y;
 		Random r = new Random();
 		this.smisk = r.nextInt(15);
@@ -59,6 +71,27 @@ public class Vakt implements Fighter, Actor {
 		this.state = FightState.IDLE;
 	}
 
+	public boolean walk(char dir){
+		/* TODO: Fix this blasphemy and/or madness! */
+		Level lvl = Game.level1;
+		int x = getX();
+		int y = getY();
+		switch(dir){
+		case 'F': y--; break;
+		case 'B': y++; break;
+		case 'L': x--; break;
+		case 'R': x++; break;
+		default: throw new IllegalArgumentException("Use FBLR and only those!");
+		}
+		if(lvl.isWalkable(x, y)){
+			this.x = x;
+			this.y = y;
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
 	public int smisk(){
 		return smisk;
 	}
@@ -76,20 +109,32 @@ public class Vakt implements Fighter, Actor {
 
 	@Override
 	public int attack() {
+		if(state == FightState.DYING){
+			return 0;
+		}
 		this.state = FightState.ATTACKING;
 		return styrke;
 	}
 
 	@Override
 	public int defend() {
+		if(state == FightState.DYING){
+			return 0;
+		}
 		this.state = FightState.ATTACKING;
 		return seighet;
 	}
 
 	@Override
 	public void takeDamage(int damage) {
+		if(state == FightState.DYING){
+			return;
+		}
 		this.state = FightState.ATTACKING;
 		helse -= damage;
+		if(helse < 0){
+			state = FightState.DYING;
+		}
 	}
 
 	@Override
@@ -122,24 +167,31 @@ public class Vakt implements Fighter, Actor {
 	public int getY() {
 		return y;
 	}
-	@Override
-	public boolean collidesWith(Actor a) {
-		switch(a.facesDirection()){
-		case 'B':
-			return a.getX() == this.x - 1 && a.getY() == this.y;
-		case 'F':
-			return a.getX() == this.x + 1 && a.getY() == this.y;
-		case 'L':
-			return a.getX() == this.x && a.getY() == this.y - 1;
-		case 'R':
-			return a.getX() == this.x && a.getY() == this.y + 1;
-		default:
-			return true;
-		}
-	}
+
 	@Override
 	public char facesDirection() {
-		return 'F'; /* TODO: La en Vakt vite hvilken vei han står/går */
+		return direction;
+	}
+	
+	public void setDirection(char dir){
+		if("FBLR".indexOf(dir) == -1){ 
+			return;
+		}
+		this.direction = dir;
+	}
+	@Override
+	public void render(Graphics g) {
+		System.out.println("The Vakt class has no concept of style, fashion, appearance or common decency, and is therefore barred from painting itself");
+	}
+	@Override
+	public boolean blocksMovement() {
+//		System.out.printf("I have %d so %s%n", health(), health() > 0 ? "YOU SHALL NOT PASS":"I'm in no position to argue");
+		return health() > 0;
+	}
+	@Override
+	public void act() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

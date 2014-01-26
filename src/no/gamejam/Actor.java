@@ -1,6 +1,8 @@
 package no.gamejam;
 
-public interface Actor extends Fighter {
+import ghp.tilegame.main.levels.Paintable;
+
+public interface Actor extends Fighter, Paintable{
 	/**
 	 * Every actor needs a chance to act.
 	 * Therefore this method.
@@ -19,14 +21,15 @@ public interface Actor extends Fighter {
 	 * @return the tile where the actor is currently stationed.
 	 */
 	public int getY();
-	
+
 	/**
-	 * Checks if taking a step in the given direction will result in a collision with the given actor
-	 * @param a The actor you compare with
-	 * @param direction the direction you're going, one of u,d,l,r.
-	 * @return true if you collide with the actor, false otherwise
+	 * Checks to see if this Actor allows a to move through it.
+	 * There can still be other things that blocks movement, so even if this method returns true, that's no guarantee that you should be allowed.
+	 * @return true if it blocks him and does NOT allow it, otherwise true
 	 */
-	public boolean collidesWith(Actor a);
+	public boolean blocksMovement();
+	
+	public void act();
 	
 	public char facesDirection();
 }

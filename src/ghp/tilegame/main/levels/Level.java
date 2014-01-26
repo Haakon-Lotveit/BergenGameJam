@@ -1,5 +1,6 @@
 package ghp.tilegame.main.levels;
 
+import ghp.tilegame.main.Game;
 import ghp.tilegame.main.gfx.ImageManager;
 import ghp.tilegame.main.tiles.FloorTile;
 import ghp.tilegame.main.tiles.Tile;
@@ -28,6 +29,16 @@ public class Level implements TiledLevel
 		}
 	}*/
 
+	public void act(){
+		for(Actor a : getActors()){
+			a.act();
+		}
+	}
+	public void tick(Game game){
+		for(Actor a : getActors()){
+			a.tick(this);
+		}
+	}
 	public boolean isWalkable(int x, int y){
 		if(x < 0 || x >= tiles.length || y < 0 || y > tiles[0].length){
 			return false;
@@ -37,7 +48,7 @@ public class Level implements TiledLevel
 		}
 		for(Actor a : getActors()){
 			if(a.getX() == x && a.getY() == y){
-				return false;
+				return !a.blocksMovement();
 			}
 		}
 		return true;
@@ -70,11 +81,16 @@ public class Level implements TiledLevel
 		}
 	}
 
-	public void renderLevel(Graphics g, Tile floorTile){
+	public void renderLevel(Graphics g){
+		/* Step 1: Render terrain */
 		for(int y=0; y<tilesY; y++){
 			for(int x=0; x<tilesX; x++){
 				tiles[x][y].render(g,  x*64, y*64);
 			}
+		}
+		/* Step 2: Render the actors */
+		for(Actor a : getActors()){
+			a.render(g);
 		}
 	}
 	
@@ -96,6 +112,10 @@ public class Level implements TiledLevel
 	@Override
 	public int getYSize() {
 		return this.tilesY;
+	}
+
+	public void removeActor(Actor a) {
+		actors.remove(a);
 	}
 }
 

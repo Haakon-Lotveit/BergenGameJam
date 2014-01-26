@@ -53,4 +53,13 @@ public class SoundThread extends Thread {
 	public SoundController getController(){
 		return this.SC;
 	}
+	
+	@Override
+	public void run(){
+		while(true){
+			System.out.println("RUNNING");
+			SC.run();
+		}
+		
+	}
 }
