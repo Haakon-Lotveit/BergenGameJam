@@ -48,8 +48,6 @@ public class Level implements TiledLevel
 				tiles[x][y].render(g,  x*64, y*64);
 			}
 		}
-		
-		
 	}
 
 	@Override
