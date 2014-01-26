@@ -12,8 +12,6 @@ import ghp.tilegame.main.levels.LoadLevel;
 import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.SplashScreen;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -22,6 +20,10 @@ import javax.swing.JFrame;
 
 import no.gamejam.FightEngine;
 import no.gamejam.TalkEngine;
+import no.gamejam.sound.LargeSound;
+import no.gamejam.sound.SoundController;
+import no.gamejam.sound.SoundFile;
+import no.gamejam.sound.SoundThread;
 	
 public class Game extends Canvas implements Runnable{
 	
@@ -133,8 +135,12 @@ public class Game extends Canvas implements Runnable{
 		bs.show();
 	}
 	
-	public static void main(String[] args)
+	public static void main(String[] args) throws Exception
 	{
+		LargeSound ls = new LargeSound(new File("test.wav").toURI().toURL());
+		Thread t = new Thread(ls);
+		t.start();
+		ls.sendMessage(LargeSound.MSG_PLAY);
 		game = new Game();
 		game.setPreferredSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
 		game.setMaximumSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));

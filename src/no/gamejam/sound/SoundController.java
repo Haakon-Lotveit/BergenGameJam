@@ -80,6 +80,7 @@ public class SoundController implements Runnable {
 	}
 
 	public void sendMessage(Integer message) {
+		System.out.println("YOU GOT MAIL");
 		lock.lock();
 		try {
 			this.messagebox.add(message);
@@ -92,7 +93,7 @@ public class SoundController implements Runnable {
 	public void run() {
 		// Let's get ambitious and do an event loop.
 		while (true) {
-			updateProgress();
+			System.out.println(sound.isPlaying());
 			Integer command = -1;
 			/*
 			 *  This should give us a classic race condition.
@@ -106,6 +107,7 @@ public class SoundController implements Runnable {
 			try {
 				if(messagebox.size() > 0){
 					command = messagebox.remove();
+					System.out.println("MAIL!");
 				}
 			} finally {
 				lock.unlock();
@@ -122,7 +124,7 @@ public class SoundController implements Runnable {
 				 */
 
 				case MSG_PLAY_PAUSE:
-					//					System.out.println("The play/pause button has been pushed! GLORIOUS!");
+					System.out.println("The play/pause button has been pushed! GLORIOUS!");
 					if (status == PLAYING) {
 						pause();
 					}
@@ -132,6 +134,7 @@ public class SoundController implements Runnable {
 					break;
 
 				case MSG_PLAY:
+					System.out.println("Playing!");
 					play();
 					break;
 
@@ -202,6 +205,10 @@ public class SoundController implements Runnable {
 		int percentage = (int) Math.ceil(((double) sound.getClip().getFramePosition() / (double) sound.getClip().getFrameLength()) * 100);
 		progress = String.format("%d%%", percentage);
 
+	}
+	
+	public boolean isPlaying(){
+		return status == PLAYING;
 	}
 
 }

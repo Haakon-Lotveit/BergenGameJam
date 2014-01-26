@@ -49,7 +49,6 @@ public class SoundFile {
         clip = (Clip) AudioSystem.getLine(line);
         clip.open(ais);
 
-
         if (clip.isControlSupported(BooleanControl.Type.MUTE)) {
             this.mute = (BooleanControl) clip.getControl(BooleanControl.Type.MUTE);
         } else {
