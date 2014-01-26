@@ -40,6 +40,7 @@ public class Game extends Canvas implements Runnable{
 //	temp
 	private static FloorTile floorTile;
 	public static Level level1;
+	public static Game game;
 	
 	public void init(){
 		ImageLoader loader = new ImageLoader();
@@ -133,7 +134,7 @@ public class Game extends Canvas implements Runnable{
 	
 	public static void main(String[] args)
 	{
-		Game game = new Game();
+		game = new Game();
 		game.setPreferredSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
 		game.setMaximumSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
 		game.setMinimumSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
