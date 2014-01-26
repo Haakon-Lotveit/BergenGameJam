@@ -21,12 +21,11 @@ public class Vakt implements Actor {
 	
 	private final int SPEED = 2;
 	public boolean moving = false, movingUp = false, movingDn = false, movingLt = false, movingRt = false;
-	public int pixelsToMoveX = 0, pixelsToMoveY = 0;
-	private char animType = 'W', charAngle = 'F';
-	private long time;
-	private int limit, limit2, limit3, animFrame = 0;
+	public int pixelsToMoveX = 0, pixelsToMoveY = 0, animFrame = 0;
+	public char animType = 'W', charAngle = 'B';
+	private long time = 0;
+	private int limit = 166, limit2 = 333, limit3 = 500;
 	public int pixelX = 256, pixelY = 192;
-	NilsAnims anims = new NilsAnims();
 
 	private void init(){
 		this.direction = 'F';
@@ -110,15 +109,19 @@ public class Vakt implements Actor {
 			switch(dir){
 			case 'B':  	movingUp = true;	
 						pixelsToMoveY = 64;
+						charAngle = 'B';
 			break;
 			case 'F':  	movingDn = true;
 						pixelsToMoveY = -64;
+						charAngle = 'F';
 			break;
 			case 'L': 	movingLt = true;
 						pixelsToMoveX = 64;
+						charAngle = 'L';
 	        break;
 			case 'R':  	movingRt = true;
 						pixelsToMoveX = -64;
+						charAngle = 'R';
 			break;
 			default: 	System.out.println("No direction to move");
 						pixelsToMoveX = 0;
@@ -134,22 +137,22 @@ public class Vakt implements Actor {
 	
 	public void checkMoving(){
 		if(movingUp){
-			charAngle = 'B';
+//			charAngle = 'B';
 			pixelsToMoveY -= SPEED;
 			if(pixelsToMoveY <= 0){movingUp = false; moving = false; animFrame = 0;}
 		}
 		else if(movingDn){
-			charAngle = 'F';
+//			charAngle = 'F';
 			pixelsToMoveY += SPEED;
 			if(pixelsToMoveY >= 0){movingDn = false; moving = false; animFrame = 0;}
 		}
 		else if(movingLt){
-			charAngle = 'L';
+//			charAngle = 'L';
 			pixelsToMoveX -= SPEED;
 			if(pixelsToMoveX <= 0){movingLt = false; moving = false; animFrame = 0;}
 		}
 		else if(movingRt){
-			charAngle = 'R';
+//			charAngle = 'R';
 			pixelsToMoveX += SPEED;
 			if(pixelsToMoveX >= 0){movingRt = false; moving = false; animFrame = 0;}
 		}
@@ -217,7 +220,25 @@ public class Vakt implements Actor {
 			this.state = FightState.DYING;
 		}
 		checkMoving();
-		System.out.println(pixelsToMoveY);
+		
+		if (animType == 'W'){
+			if (System.currentTimeMillis() - time > limit){
+				if(moving){animFrame = 0;}
+			}
+			if (System.currentTimeMillis() - time > limit2){
+				if(moving){animFrame = 2;}
+			}
+		}
+		else if (animType == 'A'){
+			if (System.currentTimeMillis() - time > limit2){
+				if(moving){animFrame = 1;}
+			}
+			if (System.currentTimeMillis() - time > limit3){
+				if(moving){animFrame = 0; moving = false; animType = 'W';}
+			}
+		}
+		
+		System.out.print(charAngle);
 		return;
 	}
 
@@ -232,6 +253,9 @@ public class Vakt implements Actor {
 	@Override
 	public int getY() {
 		return y;
+	}
+	public char getCharAngle(){
+		return charAngle;
 	}
 
 	@Override

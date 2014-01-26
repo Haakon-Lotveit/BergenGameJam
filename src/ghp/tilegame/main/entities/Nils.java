@@ -20,6 +20,8 @@ public class Nils extends Vakt implements Paintable {
 	private int tileSize = 64;
 	private int walkstep = 0;
 	private char[] steps = new char[0];
+	NilsAnims anims = new NilsAnims();
+	
 	@Override
 	public void tick(Object gameboard){
 		if(super.health() <= 0){
@@ -113,15 +115,17 @@ public class Nils extends Vakt implements Paintable {
 					System.exit(2);
 				}
 			}
-		if(null == image){
+//		if(null == image){
 			System.out.println("fetching image for nils");
 			try {
-				image = ImageIO.read(new File(IMAGE_LOCATION));
+//				image = ImageIO.read(new File(IMAGE_LOCATION));
+				System.out.println(super.getCharAngle());
+				image = ImageIO.read(new File(anims.getAnims(animType, super.getCharAngle(), animFrame)));
 			} catch (IOException e) {
 				e.printStackTrace();
 				System.exit(1);
 			}
-		}
+//		}
 		return health() > 0? image : death;
 	}
 	

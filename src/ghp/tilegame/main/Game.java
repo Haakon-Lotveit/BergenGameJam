@@ -22,14 +22,12 @@ import javax.swing.JFrame;
 
 import no.gamejam.FightEngine;
 import no.gamejam.TalkEngine;
-<<<<<<< HEAD
-=======
+
 import no.gamejam.sound.LargeSound;
 import no.gamejam.sound.SoundController;
 import no.gamejam.sound.SoundDispenser;
 import no.gamejam.sound.SoundFile;
 import no.gamejam.sound.SoundThread;
->>>>>>> 58922a4e219a277935098eaf56d4b56da36ff4cd
 	
 public class Game extends Canvas implements Runnable{
 	public static SoundDispenser sounds = new SoundDispenser();
@@ -143,10 +141,6 @@ public class Game extends Canvas implements Runnable{
 	
 	public static void main(String[] args)
 	{
-<<<<<<< HEAD
-=======
-		
->>>>>>> 58922a4e219a277935098eaf56d4b56da36ff4cd
 		game = new Game();
 		game.setPreferredSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
 		game.setMaximumSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
