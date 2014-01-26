@@ -1,6 +1,7 @@
 package ghp.tilegame.main;
 
 //import ghp.tilegame.main.entities.Nils;
+import ghp.tilegame.main.entities.Nils;
 import ghp.tilegame.main.entities.Player;
 import ghp.tilegame.main.gfx.ImageLoader;
 import ghp.tilegame.main.gfx.ImageManager;
@@ -20,25 +21,33 @@ import java.io.FileNotFoundException;
 
 import javax.swing.JFrame;
 
+import no.gamejam.FightEngine;
+import no.gamejam.TalkEngine;
+
 public class Game extends Canvas implements Runnable{
 	private static final long serialVersionUID = 1L;
 	public static final int WIDTH = 320, HEIGHT = 192, SCALE = 2, TILESIZE =34;
 	public static boolean running = false;
+	/* DETTE MÅ FIKSES ;_; */
+	public static FightEngine fe;
+	public static TalkEngine te;
 	public Thread gameThread;
 	
 	private BufferedImage tileSheet;
 	private ImageManager im;
 	
 	private static Player player;
-//	private static Nils nils;
+	private static Nils nils;
 //	temp
 	private static FloorTile floorTile;
 	public static Level level1;
+	public static Game game;
 	
 	public void init(){
 		ImageLoader loader = new ImageLoader();
 		
-//		nils = new Nils(2 ,1);
+		nils = new Nils(7,2);
+
 		
 		tileSheet = loader.load("resources/sprites/tilesheet.png");
 		
@@ -49,14 +58,19 @@ public class Game extends Canvas implements Runnable{
 		//		temp
 		floorTile = new FloorTile(im);
 //		level1 = new Level(im);
+		
+		
 		try {
 			level1 = new LoadLevel().loadLevel(new File("test.level"), im);
+			fe = new FightEngine();
+			te = new TalkEngine();
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.exit(1);
 		}
 		
 		
+		level1.registerActor(nils);
 		this.addKeyListener(new KeyManager());
 	}
 	
@@ -122,7 +136,7 @@ public class Game extends Canvas implements Runnable{
 	
 	public static void main(String[] args)
 	{
-		Game game = new Game();
+		game = new Game();
 		game.setPreferredSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
 		game.setMaximumSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
 		game.setMinimumSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
@@ -139,6 +153,10 @@ public class Game extends Canvas implements Runnable{
 	
 	public static Player getPlayer(){
 		return player;
+	}
+
+	public static void startDiplomancy(String greeting) {
+		System.out.println(greeting);
 	}
 
 }

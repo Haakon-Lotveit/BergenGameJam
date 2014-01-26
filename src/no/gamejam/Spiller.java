@@ -1,6 +1,6 @@
 package no.gamejam;
 
-public class Spiller implements Fighter{
+public abstract class Spiller implements Fighter{
 	public static final int BLOCK_BONUS = 10;
 	
     private int skrem;

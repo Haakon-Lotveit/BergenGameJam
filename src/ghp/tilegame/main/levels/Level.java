@@ -3,9 +3,12 @@ package ghp.tilegame.main.levels;
 import ghp.tilegame.main.gfx.ImageManager;
 import ghp.tilegame.main.tiles.FloorTile;
 import ghp.tilegame.main.tiles.Tile;
+import no.gamejam.Actor;
 
 import java.awt.Graphics;
 import java.io.File;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Level implements TiledLevel
 {
@@ -13,6 +16,7 @@ public class Level implements TiledLevel
 
 	private int tilesX = 10, tilesY = 6;
 
+	private List<Actor> actors;
 	private Tile[][] tiles;
 	private final Tile FLOOR_TILE;
 
@@ -24,11 +28,35 @@ public class Level implements TiledLevel
 		}
 	}*/
 
+	public boolean isWalkable(int x, int y){
+		if(x < 0 || x >= tiles.length || y < 0 || y > tiles[0].length){
+			return false;
+		}
+		if(!tiles[x][y].isWalkable()){
+			return false;
+		}
+		for(Actor a : getActors()){
+			if(a.getX() == x && a.getY() == y){
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	public Level (ImageManager im){
+		actors = new LinkedList<>();
 		FLOOR_TILE = new FloorTile(im);
 		loadLevel();
 	}
 
+	public void registerActor(Actor a){
+		actors.add(a);
+	}
+	
+	public List<Actor> getActors(){
+		return actors;
+	}
+	
 	private void loadLevel(){
 
 		tiles = new Tile[tilesX][tilesY];

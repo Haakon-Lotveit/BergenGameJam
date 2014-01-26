@@ -3,6 +3,7 @@ package no.gamejam;
 import java.util.Random;
 
 public class Vakt implements Fighter, Actor {
+	private int x,y;
 	private int smisk;
 	private int skrem;
 	private int bløff;
@@ -10,11 +11,23 @@ public class Vakt implements Fighter, Actor {
 	private int seighet;
 	private int helse;
 	private FightState state;
-	
+	private int tileSize;
+
 	/**
 	 * Lager et vaktobjekt med tilfeldig genererte verdier fra 0-14 inklusiv
 	 */
 	public Vakt(int smisk, int skrem, int bløff, int styrke, int seighet, int helse){
+		x = y = 0;
+		this.smisk = smisk;
+		this.skrem = skrem;
+		this.bløff = bløff;
+		this.styrke = styrke;
+		this.seighet = seighet;
+		this.helse = helse;
+		this.state = FightState.IDLE;
+	}
+	public Vakt(int smisk, int skrem, int bløff, int styrke, int seighet, int helse, int x, int y){
+		this.x = x; this.y = y;
 		this.smisk = smisk;
 		this.skrem = skrem;
 		this.bløff = bløff;
@@ -33,7 +46,19 @@ public class Vakt implements Fighter, Actor {
 		this.helse = 4;
 		this.state = FightState.IDLE;
 	}
-	
+
+	public Vakt(int x, int y){
+		this.x = x; this.y = y;
+		Random r = new Random();
+		this.smisk = r.nextInt(15);
+		this.skrem = r.nextInt(15);
+		this.bløff = r.nextInt(15);
+		this.seighet = r.nextInt(10);
+		this.styrke = r.nextInt(10);
+		this.helse = 4;
+		this.state = FightState.IDLE;
+	}
+
 	public int smisk(){
 		return smisk;
 	}
@@ -43,7 +68,7 @@ public class Vakt implements Fighter, Actor {
 	public int bløff(){
 		return bløff;
 	}
-	
+
 	public String toString(){
 		return String.format("Smisk: %d, skrem: %d, bløff: %d",
 				smisk(), skrem(), bløff());
@@ -66,7 +91,7 @@ public class Vakt implements Fighter, Actor {
 		this.state = FightState.ATTACKING;
 		helse -= damage;
 	}
-	
+
 	@Override
 	public int health(){
 		return helse;
@@ -89,7 +114,32 @@ public class Vakt implements Fighter, Actor {
 	public String statString() {
 		return String.format("HP:%d A%d D%d", health(), attack(), defend());
 	}
-	
-	
+	@Override
+	public int getX() {
+		return x;
+	}
+	@Override
+	public int getY() {
+		return y;
+	}
+	@Override
+	public boolean collidesWith(Actor a) {
+		switch(a.facesDirection()){
+		case 'B':
+			return a.getX() == this.x - 1 && a.getY() == this.y;
+		case 'F':
+			return a.getX() == this.x + 1 && a.getY() == this.y;
+		case 'L':
+			return a.getX() == this.x && a.getY() == this.y - 1;
+		case 'R':
+			return a.getX() == this.x && a.getY() == this.y + 1;
+		default:
+			return true;
+		}
+	}
+	@Override
+	public char facesDirection() {
+		return 'F'; /* TODO: La en Vakt vite hvilken vei han står/går */
+	}
 	
 }
