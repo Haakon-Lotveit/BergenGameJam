@@ -13,52 +13,32 @@ public class KeyManager implements KeyListener
 		int xpos = p.getXCoord();
 		int ypos = p.getYCoord();
 		
-		
 		if((e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) && Game.getPlayer().moving == false){
-			if(ypos == 0 ){
-				return;
-			}
-			if(!Game.level1.getTile(xpos, ypos - 1).isWalkable()){
-				return;
-			}
-//			p.moveUp()
-//			Game.getPlayer().moveUp;
+			if(!Game.level1.isWalkable(xpos, ypos - 1)){ return; }
+			//			p.moveUp()
+			//			Game.getPlayer().moveUp;
 			Game.getPlayer().up = true;
 			Game.getPlayer().moving = true;
 			Game.getPlayer().movingUp = true;
 			Game.getPlayer().pixelsToMove = 64;
 		}
 		if((e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) && Game.getPlayer().moving == false){
-			if(Game.level1.getYSize() - 1 == ypos){
-				return;
-			}
-			if(!Game.level1.getTile(xpos, ypos + 1).isWalkable()){
-				return;
-			}
+			if(!Game.level1.isWalkable(xpos, ypos + 1)){ return; }
+			
 			Game.getPlayer().dn = true;
 			Game.getPlayer().moving = true;
 			Game.getPlayer().movingDn = true;
 			Game.getPlayer().pixelsToMove = 64;
 		}
 		if((e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) && Game.getPlayer().moving == false){
-			if(xpos == 0){
-				return;
-			}
-			if(!Game.level1.getTile(xpos - 1, ypos).isWalkable()){
-				return;
-			}
+			if(!Game.level1.isWalkable(xpos - 1, ypos)){ return; }
 			Game.getPlayer().lt = true;
 			Game.getPlayer().moving = true;
 			Game.getPlayer().movingLt = true;
 			Game.getPlayer().pixelsToMove = 64;
 		}
 		if((e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) && Game.getPlayer().moving == false){
-			if(xpos == Game.level1.getXSize() - 1){
-				return;
-			}
-			if(!Game.level1.getTile(xpos + 1, ypos).isWalkable()){
-				return;
-			}
+			if(!Game.level1.isWalkable(xpos + 1, ypos)){ return; }
 			Game.getPlayer().rt = true;
 			Game.getPlayer().moving = true;
 			Game.getPlayer().movingRt = true;
@@ -66,7 +46,7 @@ public class KeyManager implements KeyListener
 		}
 		
 		if(e.getKeyCode() == KeyEvent.VK_N){
-			Game.getPlayer().playerAttack();
+			Game.fe.attack(p, p.getDir(), Game.level1);
 		}	
 		if(e.getKeyCode() == KeyEvent.VK_M){
 			Game.getPlayer().playerBlock();
