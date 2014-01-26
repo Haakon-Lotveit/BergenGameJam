@@ -68,7 +68,7 @@ public class Game extends Canvas implements Runnable{
 		 * Dette er ti millioner ganger bedre enn den forrige kludgen.
 		 * Nå er aktørene i et brett et del av brettet, og ikke av Game
 		 */
-		level1.registerActor(new Nils(5, 5, 5, 5, 5, 5, 3, 2, 64));
+		level1.registerActor(new Nils(5, 5, 5, 5, 5, 5, 3, 2, 64).setPatrolRoute("RFFLLBBR"));
 		this.addKeyListener(new KeyManager());
 		
 		final SplashScreen splash = SplashScreen.getSplashScreen();

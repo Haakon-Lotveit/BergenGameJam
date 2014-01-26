@@ -11,8 +11,6 @@ import ghp.tilegame.main.Game;
 import ghp.tilegame.main.levels.Paintable;
 import no.gamejam.Actor;
 import no.gamejam.FightState;
-import no.gamejam.TalkEngine;
-import no.gamejam.TalkType;
 import no.gamejam.Vakt;
 
 public class Nils extends Vakt implements Paintable {
@@ -21,7 +19,7 @@ public class Nils extends Vakt implements Paintable {
 	private static BufferedImage death;
 	private int tileSize = 64;
 	private int walkstep = 0;
-	private char[] steps = "RBBLLFFR".toCharArray();
+	private char[] steps = new char[0];
 	@Override
 	public void tick(Object gameboard){
 		if(super.health() <= 0){
@@ -35,6 +33,10 @@ public class Nils extends Vakt implements Paintable {
 		}	
 	}
 	
+	public Nils setPatrolRoute(String route){
+		this.steps = route.toCharArray();
+		return this;
+	}
 	@Override
 	public void act(){
 		int manhattan = manhattanAirDistance(Game.getPlayer());
@@ -45,13 +47,18 @@ public class Nils extends Vakt implements Paintable {
 			return;
 		}
 		else{
+			if(steps.length == 0){
+				System.out.println("En Nils stirrer sløvt ut i horisonten: Han har ingensteder å gå :( ");
+			}
 			char dir = steps[walkstep];
-			++walkstep;
+			if(walk(dir)){
+				++walkstep;
+			}
 			/* Husker noen den kule måten å gjøre dette på? */
 			if(walkstep >= steps.length){
 				walkstep = 0;
 			}
-			walk(dir);
+			
 		}
 
 	}
