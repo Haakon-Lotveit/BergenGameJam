@@ -70,17 +70,6 @@ public class Game extends Canvas implements Runnable{
 		 */
 		level1.registerActor(new Nils(5, 5, 5, 5, 5, 5, 3, 2, 64).setPatrolRoute("RFFLLBBR"));
 		this.addKeyListener(new KeyManager());
-		
-		final SplashScreen splash = SplashScreen.getSplashScreen();
-        if (splash == null) {
-            System.out.println("SplashScreen.getSplashScreen() returned null");
-            return;
-        }
-        Graphics2D g = splash.createGraphics();
-        if (g == null) {
-            System.out.println("g is null");
-            return;
-        }
 	}
 	
 	public void start(){
