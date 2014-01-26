@@ -1,3 +1,6 @@
+
+
+
 package no.gamejam.sound;
 
 import java.io.File;
@@ -8,62 +11,40 @@ import java.util.Random;
 
 import java.util.Scanner;
 
+import kuusisto.tinysound.Sound;
+import kuusisto.tinysound.TinySound;
+
 public class SoundDispenser {
-	Map<String, ArrayList<SoundController>> småLyder;
-	Map<String, LargeSound> storeLyder;
+	protected Map<String, ArrayList<Sound>> sounds;
+	
 	public SoundDispenser(){
-		try{
-		småLyder = new HashMap<>();
-		storeLyder = new HashMap<>();
-		ArrayList<SoundController> samling = new ArrayList<>();
-		samling.add(new SoundController(new SoundFile(new File("resources/sound/hit_1.wav"))));
-		samling.add(new SoundController(new SoundFile(new File("resources/sound/hit_2.wav"))));
-		småLyder.put("HIT", samling);
-		
-		samling = new ArrayList<>();
-		samling.add(new SoundController(new SoundFile(new File("resources/sound/swoosh_1.wav"))));
-		samling.add(new SoundController(new SoundFile(new File("resources/sound/swoosh_2.wav"))));
-		småLyder.put("SWOOSH", samling);
-		
-		samling = new ArrayList<>();
-		samling.add(new SoundController(new SoundFile(new File("resources/sound/step_1.wav"))));
-		samling.add(new SoundController(new SoundFile(new File("resources/sound/step_2.wav"))));
-		samling.add(new SoundController(new SoundFile(new File("resources/sound/step_3.wav"))));
-		småLyder.put("STEP", samling);
-		
-		}catch(Exception e){
-			e.printStackTrace();
-			System.exit(1);
-		}
-	}
-	public SoundController getRandomSound(String type){
-		if(!småLyder.containsKey(type)){
-			return null;
-		}		
-		ArrayList<SoundController> valg = småLyder.get(type);
-		int which = new Random().nextInt(valg.size());
-//		System.out.printf("%d/%d%n", which, valg.size());
-		return valg.get(which);
+		sounds = new HashMap<>();
+		String prefix = "resources/sound/";
+		ArrayList<Sound> group = new ArrayList<>();
+		group.add(TinySound.loadSound(new File(String.format("%s%s", prefix, "fx_atmos.wav"))));
+		sounds.put("ATMOS", group);
+		group = new ArrayList<>();
+		group.add(TinySound.loadSound(new File(String.format("%s%s", prefix, "hit_1.wav"))));
+		group.add(TinySound.loadSound(new File(String.format("%s%s", prefix, "hit_2.wav"))));
+		sounds.put("HIT", group);
+		group = new ArrayList<>();
+		group.add(TinySound.loadSound(new File(String.format("%s%s", prefix, "step_1.wav"))));
+		group.add(TinySound.loadSound(new File(String.format("%s%s", prefix, "step_2.wav"))));
+		group.add(TinySound.loadSound(new File(String.format("%s%s", prefix, "step_3.wav"))));
+		sounds.put("STEP", group);
+		group = new ArrayList<>();
+		group.add(TinySound.loadSound(new File(String.format("%s%s", prefix, "swoosh_1.wav"))));
+		group.add(TinySound.loadSound(new File(String.format("%s%s", prefix, "swoosh_2.wav"))));
+		sounds.put("SWOOSH", group);
 	}
 	
-	public static void main(String[] args) {
-		Scanner kb = new Scanner(System.in);
-		SoundDispenser disp = new SoundDispenser();
-		int ganger = 10;
-		long venting = 2000L;
-		for(int i = 0; i < ganger; ++i){
-			
-			disp.playRandom("HIT");
-			
-			Long time = System.currentTimeMillis();
-			while(System.currentTimeMillis() - time < venting){
-				continue;
-			}
-		}
-	}
 	public void playRandom(String type){
-		SoundController sc = getRandomSound(type);
-		new SoundThread(sc).start();
-		sc.sendMessage(SoundController.MSG_PLAY);
+		if(!sounds.containsKey(type)){
+			System.err.printf("No sounds has been registered as %s%n", type);
+		}
+		ArrayList<Sound> group = sounds.get(type);
+		Random r = new Random();
+		
+		group.get(r.nextInt(group.size())).play();
 	}
 }
