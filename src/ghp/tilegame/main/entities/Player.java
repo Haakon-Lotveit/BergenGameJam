@@ -13,12 +13,13 @@ import ghp.tilegame.main.Game;
 import ghp.tilegame.main.gfx.ImageManager;
 import ghp.tilegame.main.levels.Level;
 import ghp.tilegame.main.levels.Paintable;
+import java.util.Timer;
 
 public class Player extends Spiller implements Paintable, Actor
 {
 	private int x, y;
 	private ImageManager im;
-	private final int SPEED = 4;
+	private final int SPEED = 2;
 	public boolean moving = false;
 	public boolean movingUp = false, movingDn = false, movingLt = false, movingRt = false;
 	public int pixelsToMove = 0;
@@ -26,6 +27,7 @@ public class Player extends Spiller implements Paintable, Actor
 	private int tileSize = 64;
 	private int animFrame = 0;
 	private char charAngle = 'F';
+	private long time, limit;
 	
 	private static BufferedImage image = null;            
 	private static final String imageLocation = "resources/sprites/HanKisen_Anims/HanKisen_Walk_F01.png";
@@ -48,6 +50,8 @@ public class Player extends Spiller implements Paintable, Actor
 		this.x = x;
 		this.y = y;
 		this.im = im;
+		limit = 250;
+		time = 0;
 	}
 
 	public int getXCoord(){
@@ -62,6 +66,17 @@ public class Player extends Spiller implements Paintable, Actor
 	}
 	public void tick(){
 		checkMoving();
+		
+		if (System.currentTimeMillis() - time > limit){
+			time = System.currentTimeMillis();
+			if(moving){
+				System.out.println("HHH");
+				animFrame = 0;
+			}
+			
+		}
+		
+		
 	}
 
 	public void checkMoving(){
@@ -96,12 +111,16 @@ public class Player extends Spiller implements Paintable, Actor
 		moving = true;
 		switch(direction){
 		case 'U':  	movingUp = true;
+					animFrame = 1;
 		break;
 		case 'D':  	movingDn = true;
+					animFrame = 1;
 		break;
 		case 'L': 	movingLt = true;
+					animFrame = 1;
         break;
 		case 'R':  	movingRt = true;
+					animFrame = 1;
 		break;
 		default: 	System.out.println("No direction to move");
 					pixelsToMove = 0;
