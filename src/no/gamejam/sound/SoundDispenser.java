@@ -42,7 +42,7 @@ public class SoundDispenser {
 		}		
 		ArrayList<SoundController> valg = småLyder.get(type);
 		int which = new Random().nextInt(valg.size());
-		System.out.printf("%d/%d%n", which, valg.size());
+//		System.out.printf("%d/%d%n", which, valg.size());
 		return valg.get(which);
 	}
 	
