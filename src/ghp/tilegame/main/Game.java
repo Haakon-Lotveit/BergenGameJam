@@ -20,6 +20,9 @@ import java.io.File;
 
 import javax.swing.JFrame;
 
+import kuusisto.tinysound.Music;
+import kuusisto.tinysound.TinySound;
+
 import no.gamejam.FightEngine;
 import no.gamejam.TalkEngine;
 
@@ -30,7 +33,7 @@ import no.gamejam.sound.SoundFile;
 import no.gamejam.sound.SoundThread;
 	
 public class Game extends Canvas implements Runnable{
-	public static SoundDispenser sounds = new SoundDispenser();
+	public static SoundDispenser sounds = null;
 	private static final long serialVersionUID = 1L;
 	public static final int WIDTH = 320, HEIGHT = 192, SCALE = 2, TILESIZE =34;
 	public static boolean running = false;
@@ -141,6 +144,15 @@ public class Game extends Canvas implements Runnable{
 	
 	public static void main(String[] args)
 	{
+<<<<<<< HEAD
+=======
+		TinySound.init();
+		sounds = new SoundDispenser();
+		Music song = TinySound.loadMusic(new File("resources/music/main_theme.wav"));
+		song.play(true);
+		
+		
+>>>>>>> dcbee30428506de7a6d0a0c0149689e2bb246c2a
 		game = new Game();
 		game.setPreferredSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
 		game.setMaximumSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
