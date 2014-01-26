@@ -17,6 +17,14 @@ public class Vakt implements Actor {
 	protected FightState state;
 	private int tileSize;
 	private char direction;
+	
+	private final int SPEED = 2;
+	public boolean moving = false, movingUp = false, movingDn = false, movingLt = false, movingRt = false;
+	public int pixelsToMove = 0;
+	private char animType = 'W', charAngle = 'F';
+	private long time;
+	private int limit, limit2, limit3, animFrame = 0;
+	public int pixelX = 256, pixelY = 192;
 
 	private void init(){
 		this.direction = 'F';
@@ -84,14 +92,66 @@ public class Vakt implements Actor {
 		default: throw new IllegalArgumentException("Use FBLR and only those!");
 		}
 		if(lvl.isWalkable(x, y)){
-			this.x = x;
-			this.y = y;
+//			this.x = x;
+//			this.y = y;
+			
+			pixelsToMove = 64;
+			moving = true;
+			time = System.currentTimeMillis();
+			animFrame = 1;
+			
+			System.out.println(pixelsToMove);
+			System.out.println(moving);
+			
+			switch(dir){
+			case 'B':  	movingUp = true;	
+			break;
+			case 'F':  	movingDn = true;
+			break;
+			case 'L': 	movingLt = true;
+	        break;
+			case 'R':  	movingRt = true;
+			break;
+			default: 	System.out.println("No direction to move");
+						pixelsToMove = 0;
+						moving = false;
+	        break;
+			}
 			return true;
 		}
 		else{
 			return false;
 		}
 	}
+	
+	public void checkMoving(){
+		if(movingUp){
+			charAngle = 'B';
+			y -= SPEED;
+			pixelsToMove -= SPEED;
+			if(pixelsToMove <= 0){movingUp = false; moving = false; animFrame = 0;}
+		}
+		else if(movingDn){
+			charAngle = 'F';
+			y += SPEED;
+			pixelsToMove -= SPEED;
+			if(pixelsToMove <= 0){movingDn = false; moving = false; animFrame = 0;}
+		}
+		else if(movingLt){
+			charAngle = 'L';
+			x -= SPEED;
+			pixelsToMove -= SPEED;
+			if(pixelsToMove <= 0){movingLt = false; moving = false; animFrame = 0;}
+		}
+		else if(movingRt){
+			charAngle = 'R';
+			x += SPEED;
+			pixelsToMove -= SPEED;
+			System.out.println(pixelsToMove);
+			if(pixelsToMove <= 0){movingRt = false; moving = false; animFrame = 0;}
+		}
+	}
+	
 	public int smisk(){
 		return smisk;
 	}
@@ -147,11 +207,13 @@ public class Vakt implements Actor {
 		return state;
 	}
 
-	@Override
+	@Override // TICK____________
 	public void tick(Object gameBoard) {
 		if(health() < 0){
 			this.state = FightState.DYING;
 		}
+		checkMoving();
+//		System.out.println(moving);
 		return;
 	}
 
