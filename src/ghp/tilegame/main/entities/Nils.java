@@ -29,7 +29,7 @@ public class Nils extends Vakt implements Paintable {
 //		System.out.println(manhattan);
 		if(manhattan <= 2){
 //				Game.startDiplomancy(te.getResponse("VAKT", "HILS"));
-		}
+		}	
 	}
 	
 	/**
@@ -86,4 +86,6 @@ public class Nils extends Vakt implements Paintable {
 		}
 		return image;
 	}
+	
+	
 }

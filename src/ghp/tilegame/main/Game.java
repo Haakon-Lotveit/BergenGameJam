@@ -14,6 +14,8 @@ import ghp.tilegame.main.tiles.FloorTile;
 import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.SplashScreen;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -68,9 +70,19 @@ public class Game extends Canvas implements Runnable{
 			System.exit(1);
 		}
 		
-		
 		level1.registerActor(nils);
 		this.addKeyListener(new KeyManager());
+		
+		final SplashScreen splash = SplashScreen.getSplashScreen();
+        if (splash == null) {
+            System.out.println("SplashScreen.getSplashScreen() returned null");
+            return;
+        }
+        Graphics2D g = splash.createGraphics();
+        if (g == null) {
+            System.out.println("g is null");
+            return;
+        }
 	}
 	
 	public synchronized void start(){
