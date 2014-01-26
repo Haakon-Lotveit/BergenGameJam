@@ -28,10 +28,6 @@ public class Player extends Spiller implements Paintable, Actor
 	private long time;
 	private int limit, limit2, limit3, animFrame = 0;
 	
-//	public enum States {NORMAL, COMBAT, STEALTH, ARISTOCRAT;}
-//	States currentState;
-	
-	
 	private static BufferedImage image = null;            
 	PlayerAnims anims = new PlayerAnims();
 	
@@ -56,7 +52,6 @@ public class Player extends Spiller implements Paintable, Actor
 		limit2 = 333;
 		limit3 = 500;
 		time = 0;
-//		currentState = States.NORMAL;
 	}
 
 	public int getXCoord(){

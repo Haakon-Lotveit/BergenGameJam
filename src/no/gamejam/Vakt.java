@@ -1,6 +1,7 @@
 package no.gamejam;
 
 import ghp.tilegame.main.Game;
+import ghp.tilegame.main.entities.NilsAnims;
 import ghp.tilegame.main.levels.Level;
 
 import java.awt.Graphics;
@@ -20,11 +21,12 @@ public class Vakt implements Actor {
 	
 	private final int SPEED = 2;
 	public boolean moving = false, movingUp = false, movingDn = false, movingLt = false, movingRt = false;
-	public int pixelsToMove = 0;
+	public int pixelsToMoveX = 0, pixelsToMoveY = 0;
 	private char animType = 'W', charAngle = 'F';
 	private long time;
 	private int limit, limit2, limit3, animFrame = 0;
 	public int pixelX = 256, pixelY = 192;
+	NilsAnims anims = new NilsAnims();
 
 	private void init(){
 		this.direction = 'F';
@@ -98,28 +100,28 @@ public class Vakt implements Actor {
 		
 		/* Then, check if the level objects to us going there */
 		if(lvl.isWalkable(x, y)){
-//			this.x = x;
-//			this.y = y;
+			this.x = x;
+			this.y = y;
 			
-			pixelsToMove = 64;
 			moving = true;
 			time = System.currentTimeMillis();
 			animFrame = 1;
 			
-			System.out.println(pixelsToMove);
-			System.out.println(moving);
-			
 			switch(dir){
 			case 'B':  	movingUp = true;	
+						pixelsToMoveY = 64;
 			break;
 			case 'F':  	movingDn = true;
+						pixelsToMoveY = -64;
 			break;
 			case 'L': 	movingLt = true;
+						pixelsToMoveX = 64;
 	        break;
 			case 'R':  	movingRt = true;
+						pixelsToMoveX = -64;
 			break;
 			default: 	System.out.println("No direction to move");
-						pixelsToMove = 0;
+						pixelsToMoveX = 0;
 						moving = false;
 	        break;
 			}
@@ -133,28 +135,23 @@ public class Vakt implements Actor {
 	public void checkMoving(){
 		if(movingUp){
 			charAngle = 'B';
-			y -= SPEED;
-			pixelsToMove -= SPEED;
-			if(pixelsToMove <= 0){movingUp = false; moving = false; animFrame = 0;}
+			pixelsToMoveY -= SPEED;
+			if(pixelsToMoveY <= 0){movingUp = false; moving = false; animFrame = 0;}
 		}
 		else if(movingDn){
 			charAngle = 'F';
-			y += SPEED;
-			pixelsToMove -= SPEED;
-			if(pixelsToMove <= 0){movingDn = false; moving = false; animFrame = 0;}
+			pixelsToMoveY += SPEED;
+			if(pixelsToMoveY >= 0){movingDn = false; moving = false; animFrame = 0;}
 		}
 		else if(movingLt){
 			charAngle = 'L';
-			x -= SPEED;
-			pixelsToMove -= SPEED;
-			if(pixelsToMove <= 0){movingLt = false; moving = false; animFrame = 0;}
+			pixelsToMoveX -= SPEED;
+			if(pixelsToMoveX <= 0){movingLt = false; moving = false; animFrame = 0;}
 		}
 		else if(movingRt){
 			charAngle = 'R';
-			x += SPEED;
-			pixelsToMove -= SPEED;
-			System.out.println(pixelsToMove);
-			if(pixelsToMove <= 0){movingRt = false; moving = false; animFrame = 0;}
+			pixelsToMoveX += SPEED;
+			if(pixelsToMoveX >= 0){movingRt = false; moving = false; animFrame = 0;}
 		}
 	}
 	
@@ -220,7 +217,7 @@ public class Vakt implements Actor {
 			this.state = FightState.DYING;
 		}
 		checkMoving();
-//		System.out.println(moving);
+		System.out.println(pixelsToMoveY);
 		return;
 	}
 
